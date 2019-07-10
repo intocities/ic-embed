@@ -41,6 +41,21 @@
     // private functions END
 
     // public functions BEGIN
+    this.params = function () {
+      var hash = self.options.iframe.src.split('#')[1]
+      var pairs = hash.split('&')
+      var returnObj = {}
+
+      for (var i = 0; i < pairs.length; i++) {
+        var pair = pairs[i].split('=')
+        var key = decodeURIComponent(pair[0])
+        var value = decodeURIComponent(pair[1])
+        returnObj[key] = value
+      }
+
+      return returnObj
+    }
+
     this.changeScene = function (sceneId, ath, atv) {
       var options = {
         name: 'changeScene',

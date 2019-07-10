@@ -23,23 +23,23 @@ If you just want to embed your Virtual Tour, you do not need this script.
     var icEmbed = new ICEmbed(iframe)
     ```
 
+`yarn add git+https://git@github.com/intocities/ic-embed.git`
+
 ## Advanced usage
 
-In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you can keep the instance of the Virtual Tour but change the content on your site.
+In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you can keep the instance of the Virtual Tour but change the content on your site<sup>*</sup>.
 
-Be aware of the problem of [keeping an `<iframe>` active during navigation](https://stackoverflow.com/questions/8318264/how-to-move-an-iframe-in-the-dom-without-losing-its-state#answer-8318401).
-
-Use [this Turbolink version until the PR get's merged](https://github.com/turbolinks/turbolinks/pull/457) to work around that.
+<sup>*</sup>Be aware of the problem of [keeping an `<iframe>` active during navigation](https://stackoverflow.com/questions/8318264/how-to-move-an-iframe-in-the-dom-without-losing-its-state#answer-8318401). Use [this Turbolink version until the PR get's merged](https://github.com/turbolinks/turbolinks/pull/457) to work around that.
 
 ## Browser compatibility
 
 This script relies on [Window.postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) which is [widely supported](https://caniuse.com/#feat=x-doc-messaging).
 
-For compatibility with IE11 you need to [polyfill the CustomEvent](https://github.com/krambuhl/custom-event-polyfill).
+For compatibility with IE11 you need to [polyfill the CustomEvent](https://github.com/kumarharsh/custom-event-polyfill).
 
 ## Events
 
-Events communicate from the Virtual Tour TO your website.
+Events communicate from the Virtual Tour **to** your website. It's up to you to handle them.
 
 ```
 [Your Website] <------------ [Virtual Tour]
@@ -66,6 +66,13 @@ When you want the Virtual Tour to change, you can use the API to do so.
 [Your Website] ------------> [Virtual Tour]
 ```
 
+You can also synchronously request information from the Virtual Tour.
+
+```
+                    get
+[Your Website] ------------> [Virtual Tour]
+[Your Website] <------------ [Virtual Tour]
+```
 A API call can lead to an event. Make sure not to end in a loop.
 
 ### `changeScene(sceneId, ath, atv)`
@@ -75,6 +82,10 @@ A API call can lead to an event. Make sure not to end in a loop.
 | `sceneId` | String | **yes**   | Name of the scene to display. |
 | `ath`     | Float  | no        | horizontal view direction     |
 | `atv`     | Float  | no        | vertical view direction       |
+
+### `params`
+
+Returns an object containing the current URL parameters of the tour.
 
 ## Development
 
