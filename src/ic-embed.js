@@ -1,3 +1,9 @@
+/*!
+ * ic-embed | https://github.com/intocities/ic-embed
+ * Made by Into Cities | intocities.com
+ * Released under the MIT License.
+*/
+
 (function () {
   'use strict'
 
@@ -42,7 +48,10 @@
 
     // public functions BEGIN
     this.params = function () {
-      var hash = self.options.iframe.src.split('#')[1]
+      var parts = self.options.iframe.src.split('#')
+      if (parts.length === 1) { return {} }
+
+      var hash = parts[1]
       var pairs = hash.split('&')
       var returnObj = {}
 
