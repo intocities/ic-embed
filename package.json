@@ -11,19 +11,19 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "terser src/ic-embed.js --ecma 5 --compress --mangle -o dist/ic-embed.min.js",
+    "build": "terser src/ic-embed.js --ecma 5 --comments /^!/ --compress toplevel=true,arguments=true,booleans_as_integers=true,drop_console=true,unsafe_methods=true --mangle -o dist/ic-embed.min.js",
     "lint": "eslint --ext .js --ignore-path .gitignore src",
     "lintfix": "eslint --fix --ext .js --ignore-path .gitignore src"
   },
   "devDependencies": {
-    "eslint": "^6.0",
-    "eslint-config-standard": "^13.0.0",
-    "eslint-plugin-compat": "^3.0",
-    "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-node": "^9.1.0",
+    "eslint": "^6.6",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-compat": "^3.3",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "terser": "^4.0.0"
+    "eslint-plugin-standard": "^4.0.1",
+    "terser": "^4.3.9"
   },
   "browserslist": [
     "> 2% in DE",
