@@ -1,22 +1,28 @@
 /*!
  * ic-embed | https://github.com/intocities/ic-embed
- * Made by Into Cities | intocities.com
+ * Made by Into Cities | https://intocities.com
  * Released under the MIT License.
-*/
+ */
 
 (function () {
   'use strict'
 
-  var ICEmbed = function (iframe) {
+  var ICEmbed = function (iframe, options) {
     // initialize BEGIN
     if (!iframe || !iframe.contentWindow) {
       throw Error('must give iframe!')
     }
 
-    this.options = {
-      iframe: iframe,
-      origin: iframe.src.split('/').slice(0, 3).join('/')
-    }
+    options = options || {}
+    this.options = Object.assign(
+      {
+        iframe: iframe,
+        iframeOrigin: iframe.src.split('/').slice(0, 3).join('/')
+      },
+      options
+    )
+
+    console.log('ICEmbed initialized with options', this.options)
 
     var self = this
 
@@ -25,31 +31,37 @@
 
     // private functions BEGIN
     function assertAllowedOrigin (origin) {
-      if (origin !== self.options.origin) {
-        throw new Error('Discarding message; untrusted event origin.')
+      if (origin !== self.options.iframeOrigin) {
+        throw new Error('Discarding incoming message; untrusted event origin.')
       }
     }
 
     function dispatchEvent (name, data) {
-      self.options.iframe.dispatchEvent(
-        new window.CustomEvent(name, { detail: data })
-      )
+      console.log('dispatchEvent', name, data)
+
+      self.options.iframe.dispatchEvent(new window.CustomEvent(name, { detail: data }))
     }
 
     function receiveMessage (event) {
+      console.log('receiveMessage', event)
+
       assertAllowedOrigin(event.origin)
       dispatchEvent(event.data.name, event.data)
     }
 
     function postMessage (data) {
-      self.options.iframe.contentWindow.postMessage(data, self.options.origin)
+      console.log('postMessage', data, self.options.iframeOrigin)
+
+      self.options.iframe.contentWindow.postMessage(data, self.options.iframeOrigin)
     }
     // private functions END
 
     // public functions BEGIN
     this.params = function () {
       var parts = self.options.iframe.src.split('#')
-      if (parts.length === 1) { return {} }
+      if (parts.length === 1) {
+        return {}
+      }
 
       var hash = parts[1]
       var pairs = hash.split('&')
@@ -71,8 +83,12 @@
         sceneId: sceneId
       }
 
-      if (ath) { options.ath = parseFloat(ath, 10) }
-      if (atv) { options.atv = parseFloat(atv, 10) }
+      if (ath) {
+        options.ath = parseFloat(ath, 10)
+      }
+      if (atv) {
+        options.atv = parseFloat(atv, 10)
+      }
 
       postMessage(options)
     }
@@ -87,4 +103,4 @@
   } else {
     this.ICEmbed = ICEmbed
   }
-}).call(this)
+}.call(this))
