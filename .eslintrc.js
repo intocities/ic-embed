@@ -11,5 +11,8 @@ module.exports = {
   },
   globals: {
     CustomEvent: true
+  },
+  settings: {
+    polyfills: ['Object.assign', 'CustomEvent']
   }
 }
