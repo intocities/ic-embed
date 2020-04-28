@@ -16,14 +16,14 @@
     "lintfix": "eslint --fix --ext .js --ignore-path .gitignore src"
   },
   "devDependencies": {
-    "eslint": "^6.6",
-    "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-compat": "^3.3",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^10.0.0",
+    "eslint": "^6.8",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-compat": "^3.5",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "terser": "^4.3.9"
+    "terser": "^4.6.12"
   },
   "browserslist": [
     "> 2% in DE",
