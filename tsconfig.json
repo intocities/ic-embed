@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "allowJs": true,
+    "target": "es5",
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "removeComments": true,
+    "lib": ["es5", "dom"],
+    "noImplicitAny": true
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}
