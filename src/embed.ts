@@ -1,3 +1,6 @@
+import ApiCredentials = require('./api_credentials')
+import Utils = require('./utils')
+
 interface Options {
   iframe: HTMLIFrameElement
   iframeOrigin: string
@@ -13,9 +16,17 @@ interface ChangeSceneMessage extends Message {
   atv?: number
 }
 
+const IFRAME_STYLES = {
+  width: '100%',
+  height: '100%',
+  border: 'none',
+  overflow: 'hidden'
+}
+
 class Embed {
   options: Options
 
+  // TODO: make use of apicredentials
   constructor(iframe: HTMLIFrameElement) {
     if (!iframe || !iframe?.contentWindow?.postMessage) {
       throw new TypeError('Parameter must be a HTMLIFrameElement!')
@@ -31,6 +42,21 @@ class Embed {
     console.log('ICEmbed initialized with options', this.options)
 
     window.addEventListener('message', (event) => { this.receiveMessage(event) }, false)
+  }
+
+  static init(container: HTMLElement, apiCredentials: ApiCredentials, buttonText: string): Embed {
+    const iframe = document.createElement('iframe')
+    iframe.id = `ic-tour-${apiCredentials.id}`
+    iframe.src = apiCredentials.iframeUrl()
+    iframe.allowFullscreen = true
+    iframe.allow = 'fullscreen'
+    Utils.assignStyles(iframe, IFRAME_STYLES)
+
+    container.replaceWith(iframe)
+
+    const embed = new Embed(iframe)
+
+    return embed
   }
 
   private assertAllowedOrigin(origin: string): void {
@@ -55,7 +81,7 @@ class Embed {
   private postMessage(data: Message): void {
     console.log('postMessage', data, this.options.iframeOrigin)
 
-    this.options.iframe.contentWindow.postMessage(data, this.options.iframeOrigin)
+    this.options.iframe.contentWindow!.postMessage(data, this.options.iframeOrigin)
   }
 
   params(): object {

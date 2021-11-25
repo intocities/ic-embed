@@ -9,7 +9,7 @@
   "author": "Durch die Stadt <support@durchdiestadt.de>",
   "license": "MIT",
   "scripts": {
-    "build": "yarn tsc && yarn build-min",
+    "build": "yarn run tsc && yarn build-min",
     "build-min": "browserify -p tinyify --standalone IC dist/index.js -o dist/ic-embed.min.js",
     "test": "jest"
   },
