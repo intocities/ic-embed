@@ -56,6 +56,7 @@ class Embed {
     iframe.src = apiCredentials.iframeUrl()
     iframe.allowFullscreen = true
     iframe.allow = 'fullscreen'
+    // TODO: refactor to include in `styles`
     Utils.assignStyles(iframe, IFRAME_STYLES)
 
     container.replaceWith(iframe)

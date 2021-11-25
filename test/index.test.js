@@ -1,4 +1,4 @@
-const IC = require('../dist/index');
+const IC = require('../dist/index')
 
 test('', () => {
   expect(IC).toHaveProperty('embed')

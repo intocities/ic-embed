@@ -31,7 +31,7 @@ export function preview(
   return api.validate().then((valid) => {
     if (valid) {
       let preview = new Preview(container, api, buttonText)
-      preview.add()
+      preview.mount()
       return preview
     }
     throw new Error('validation failed')

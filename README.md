@@ -12,11 +12,12 @@ Features:
 
 1. add the `<iframe>` HTML code to your page which we provided to you
 2. Load the script on your website:
-  `yarn add git+https://git@github.com/intocities/ic-embed.git`
+   `yarn add git+https://git@github.com/intocities/ic-embed.git`
 
    ```html
    <script src="dist/ic-embed.min.js" type="text/javascript"></script>
    ```
+
 3. initialize `ICEmbed`
    ```javascript
    var iframe = document.querySelector('iframe')
@@ -40,14 +41,14 @@ Events communicate from the Virtual Tour **to** your website. It's up to you to 
 After initialization, the `iframe` element will receive events when the Virtual Tour does something.
 
 ```javascript
-var iframe = document.querySelector("iframe");
+var iframe = document.querySelector('iframe')
 
-iframe.addEventListener("ic.sceneChanged", function(event) {
-  var details = event.detail;
-  var sceneId = details.sceneId;
+iframe.addEventListener('ic.sceneChanged', function (event) {
+  var details = event.detail
+  var sceneId = details.sceneId
 
-  console.log("ic.sceneChanged", details);
-});
+  console.log('ic.sceneChanged', details)
+})
 ```
 
 ## API Doc
@@ -88,4 +89,25 @@ In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you c
 
 ## Development
 
-As of now, this script is plain vanilla JS without any complex build setup.
+## TODO
+
+- [ ] docs: update README
+- [ ] docs: create demo pages
+- [ ] chore: setup CI/CD for linter and test runs
+- [ ] specs: setup test for typescript code
+- [ ] specs: keep tests for JS public api (embed, preview, ...)
+
+- [ ] host it on intocities.com to allow inclusion via <script>.
+- [ ] adjust embedding instructions
+
+- [ ] index.embed: change signature to use apicreds
+- [ ] Embed: add specs public Embed methods
+- [ ] Embed: are more preloads needed?
+- [ ] Embed: hide event-binding logic, provide ability to setup callback function (Embed#dispatchEvent)
+- [ ] Embed: make communication (sendmessage) optional (default: disabled)
+- [ ] Preview: test public Preview methods
+- [ ] Preview+Embed: support setting of start scene and initial view direction
+- [ ] add styles via class names (append style element to head)
+
+- [x] ApiCredentials: verify key + id upon creation
+- [ ] ApiCredentials: rename? this contains URLs already ... should hold tour picture url etc, too, after verify
