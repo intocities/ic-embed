@@ -10,7 +10,6 @@ import ApiCredentials = require('./api_credentials')
 import Embed = require('./embed')
 import Preview = require('./preview')
 
-// TODO: make use of apicredentials
 export function embed(iframe: HTMLIFrameElement): Embed {
   return new Embed(iframe)
 }
@@ -30,7 +29,7 @@ export function preview(
 
   return api.validate().then((valid) => {
     if (valid) {
-      let preview = new Preview(container, api, buttonText)
+      const preview = new Preview(container, api, buttonText)
       preview.mount()
       return preview
     }

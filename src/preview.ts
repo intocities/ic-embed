@@ -1,12 +1,13 @@
 import ApiCredentials = require('./api_credentials')
 import Embed = require('./embed')
-import { addPreviewStyles } from './styles'
+import { addStyles } from './styles'
 import Utils = require('./utils')
 
 class Preview {
   container: HTMLElement
   buttonText: string
   apiCredentials: ApiCredentials
+  block: HTMLElement
 
   constructor(container: HTMLElement, apiCredentials: ApiCredentials, buttonText: string) {
     this.container = container
@@ -18,12 +19,13 @@ class Preview {
     this.container.addEventListener('click', () => {
       this.embed()
     })
-
-    // TODO: when container comes into the view, add preload for tour
   }
 
   mount(): void {
-    addPreviewStyles()
+    addStyles()
+
+    this.block = document.createElement('div')
+    this.block.className = 'ic-preview'
 
     const wrapper = document.createElement('div')
     wrapper.className = 'ic-preview__wrapper'
@@ -39,12 +41,12 @@ class Preview {
 
     wrapper.appendChild(button)
     wrapper.appendChild(img)
-
-    this.container.appendChild(wrapper)
+    this.block.appendChild(wrapper)
+    this.container.appendChild(this.block)
   }
 
   embed(): Embed {
-    return Embed.init(this.container, this.apiCredentials, this.buttonText)
+    return Embed.init(this.block, this.apiCredentials)
   }
 
   private preload(): void {

@@ -1,0 +1,23 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  padding: 1rem;
+  background-color: #111;
+}
+
+#preview {
+  width: 80%;
+  height: 80%;
+  margin: 0 auto;
+}

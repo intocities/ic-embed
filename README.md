@@ -85,7 +85,7 @@ Returns an object containing the current URL parameters of the tour.
 
 In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you can keep the instance of the Virtual Tour but change the content on your site<sup>\*</sup>.
 
-<sup>\*</sup>Be aware of the problem of [keeping an `<iframe>` active during navigation](https://stackoverflow.com/questions/8318264/how-to-move-an-iframe-in-the-dom-without-losing-its-state#answer-8318401). Use [this Turbolink version until the PR get's merged](https://github.com/turbolinks/turbolinks/pull/457) to work around that.
+<sup>\*</sup>Be aware of the problem of [keeping an `<iframe>` active during navigation](https://stackoverflow.com/questions/8318264/how-to-move-an-iframe-in-the-dom-without-losing-its-state#answer-8318401). Use [this Turbolinks version until the PR get's merged](https://github.com/turbolinks/turbolinks/pull/457) to work around that.
 
 ## Development
 
@@ -93,6 +93,7 @@ In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you c
 
 - [ ] docs: update README
 - [ ] docs: create demo pages
+- [ ] docs: describe how to adjust button colors
 - [ ] chore: setup CI/CD for linter and test runs
 - [ ] specs: setup test for typescript code
 - [ ] specs: keep tests for JS public api (embed, preview, ...)
@@ -100,14 +101,15 @@ In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you c
 - [ ] host it on intocities.com to allow inclusion via <script>.
 - [ ] adjust embedding instructions
 
-- [ ] index.embed: change signature to use apicreds
+- [ ] index.embed: change signature to use ApiCredentials
 - [ ] Embed: add specs public Embed methods
 - [ ] Embed: are more preloads needed?
 - [ ] Embed: hide event-binding logic, provide ability to setup callback function (Embed#dispatchEvent)
 - [ ] Embed: make communication (sendmessage) optional (default: disabled)
 - [ ] Preview: test public Preview methods
 - [ ] Preview+Embed: support setting of start scene and initial view direction
-- [ ] add styles via class names (append style element to head)
+- [ ] Preview: when container comes into the view, add preloads for tour
+- [x] add styles via class names (append style element to head)
 
 - [x] ApiCredentials: verify key + id upon creation
 - [ ] ApiCredentials: rename? this contains URLs already ... should hold tour picture url etc, too, after verify

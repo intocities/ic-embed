@@ -1,5 +1,5 @@
 import ApiCredentials = require('./api_credentials')
-import Utils = require('./utils')
+import { addStyles } from './styles'
 
 interface Options {
   iframe: HTMLIFrameElement
@@ -15,18 +15,9 @@ interface ChangeSceneMessage extends Message {
   ath?: number
   atv?: number
 }
-
-const IFRAME_STYLES = {
-  width: '100%',
-  height: '100%',
-  border: 'none',
-  overflow: 'hidden'
-}
-
 class Embed {
   options: Options
 
-  // TODO: make use of apicredentials
   constructor(iframe: HTMLIFrameElement) {
     if (!iframe || !iframe?.contentWindow?.postMessage) {
       throw new TypeError('Parameter must be a HTMLIFrameElement!')
@@ -41,6 +32,8 @@ class Embed {
 
     console.log('ICEmbed initialized with options', this.options)
 
+    addStyles()
+
     window.addEventListener(
       'message',
       (event) => {
@@ -50,14 +43,13 @@ class Embed {
     )
   }
 
-  static init(container: HTMLElement, apiCredentials: ApiCredentials, buttonText: string): Embed {
+  static init(container: HTMLElement, apiCredentials: ApiCredentials): Embed {
     const iframe = document.createElement('iframe')
     iframe.id = `ic-tour-${apiCredentials.id}`
     iframe.src = apiCredentials.iframeUrl()
     iframe.allowFullscreen = true
     iframe.allow = 'fullscreen'
-    // TODO: refactor to include in `styles`
-    Utils.assignStyles(iframe, IFRAME_STYLES)
+    iframe.className = 'ic-embed__iframe'
 
     container.replaceWith(iframe)
 

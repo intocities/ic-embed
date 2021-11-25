@@ -1,16 +1,3 @@
-/**
- * Assigns CSS attributes (hyphen-style) to the element.
- *
- * @export
- * @param {HTMLElement} element
- * @param {{ [index: string]: string }} styles
- */
-export function assignStyles(element: HTMLElement, styles: { [index: string]: string }): void {
-  Object.keys(styles).forEach((key: string) => {
-    element.style.setProperty(key, styles[key])
-  })
-}
-
 interface Link {
   href: string
   rel: string

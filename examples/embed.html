@@ -5,34 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ICEmbed test</title>
-    <style>
-      *,
-      *::after,
-      *::before {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        min-height: 100%;
-        height: 100%;
-        margin: 0;
-      }
-
-      body {
-        padding: 1rem;
-        background-color: #111;
-      }
-
-      iframe {
-        width: 100%;
-        height: 100%;
-      }
-    </style>
+    <link rel="stylesheet" href="styles.css" />
     <script src="../dist/ic-embed.min.js"></script>
   </head>
   <body>
-    <!-- https://staging.intocities.com/embed/2/deadc0de-37a2-4697-95a8-403b9a5e88f8 -->
     <iframe src="#"></iframe>
     <script>
       window.embed = IC.embed(document.querySelector('iframe'), {
