@@ -32,15 +32,20 @@
   <script src="../dist/ic-embed.min.js"></script>
 </head>
 <body>
-  <!-- https://staging.intocities.com/embed/5/1883eb24-5e61-4e16-bdf2-f98bcc072de2 -->
   <div id="tour"></div>
   <script>
-    window.preview = IC.preview(document.querySelector('#tour'), {
+    IC.preview(document.querySelector('#tour'), {
       id: 2,
       key: 'deadc0de-37a2-4697-95a8-403b9a5e88f8',
-      baseUrl: 'http://127.0.0.1:10000/'
+      baseUrl: 'http://127.0.0.1:10010/'
     })
-    console.log(IC, preview)
+    .then(preview => {
+      console.log(IC, preview)
+      window.preview = preview
+    })
+    .catch(error => {
+      console.log(error)
+    })
   </script>
 </body>
 </html>

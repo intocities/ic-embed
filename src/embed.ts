@@ -41,7 +41,13 @@ class Embed {
 
     console.log('ICEmbed initialized with options', this.options)
 
-    window.addEventListener('message', (event) => { this.receiveMessage(event) }, false)
+    window.addEventListener(
+      'message',
+      (event) => {
+        this.receiveMessage(event)
+      },
+      false
+    )
   }
 
   static init(container: HTMLElement, apiCredentials: ApiCredentials, buttonText: string): Embed {

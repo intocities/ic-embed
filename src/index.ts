@@ -15,14 +15,25 @@ export function embed(iframe: HTMLIFrameElement): Embed {
   return new Embed(iframe)
 }
 
-export function preview(container: HTMLElement,
-  id: number,
-  key: string,
-  baseUrl = 'https://intocities.com',
-  buttonText = 'Start Virtual Tour') {
+interface PreviewParameters {
+  id: number
+  key: string
+  baseUrl: string
+  buttonText: string
+}
 
-  let preview = new Preview(container,
-                            new ApiCredentials(id, key, baseUrl),
-                            buttonText)
-  preview.add()
+export function preview(
+  container: HTMLElement,
+  { id, key, baseUrl = 'https://intocities.com', buttonText = 'Start Virtual Tour' }: PreviewParameters
+): Promise<Preview> {
+  const api = new ApiCredentials(id, key, baseUrl)
+
+  return api.validate().then((valid) => {
+    if (valid) {
+      let preview = new Preview(container, api, buttonText)
+      preview.add()
+      return preview
+    }
+    throw new Error('validation failed')
+  })
 }

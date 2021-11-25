@@ -1,12 +1,13 @@
-import ApiCredentials = require("./api_credentials")
-import Embed = require("./embed")
-import Utils = require("./utils")
+import ApiCredentials = require('./api_credentials')
+import Embed = require('./embed')
+import Utils = require('./utils')
 
 const CONTAINER_STYLES = {
   position: 'relative',
   width: '100%',
   height: '100%',
   overflow: 'hidden',
+  cursor: 'pointer'
 }
 
 const WRAPPER_STYLES = {
@@ -14,7 +15,7 @@ const WRAPPER_STYLES = {
   top: '0',
   left: '0',
   width: '100%',
-  height: '100%',
+  height: '100%'
 }
 
 const IMAGE_STYLES = {
@@ -30,12 +31,12 @@ const START_TOUR_BUTTON_STYLES = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   'z-index': '2',
-  'border-radius': '0.5em',
+  'border-radius': '0.5em'
 }
 
 class Preview {
-  container: HTMLElement;
-  buttonText: string;
+  container: HTMLElement
+  buttonText: string
   apiCredentials: ApiCredentials
 
   constructor(container: HTMLElement, apiCredentials: ApiCredentials, buttonText: string) {
@@ -45,8 +46,8 @@ class Preview {
 
     this.preload()
 
-    this.container.addEventListener('click', (_event) => {
-      Embed.init(this.container, this.apiCredentials, this.buttonText)
+    this.container.addEventListener('click', () => {
+      this.embed()
     })
 
     // TODO: when container comes into the view, add preload for tour
@@ -73,6 +74,10 @@ class Preview {
     this.container.appendChild(wrapper)
   }
 
+  embed(): Embed {
+    return Embed.init(this.container, this.apiCredentials, this.buttonText)
+  }
+
   private preload(): void {
     Utils.batchAddLinksToHead([
       { rel: 'preconnect', href: this.apiCredentials.baseUrl },
@@ -82,7 +87,7 @@ class Preview {
   }
 
   private get imageUrl(): string {
-    return `${this.apiCredentials.baseUrl}/images/${this.apiCredentials.id}/tour-preview.jpg`
+    return this.apiCredentials.apiResponse.poi.thumbnail_urls.landscape
   }
 }
 
