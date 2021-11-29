@@ -10,13 +10,15 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn run tsc && yarn build-min",
-    "build-min": "browserify -p tinyify --standalone IC dist/index.js -o dist/ic-embed.min.js",
-    "test": "jest",
-    "lintfix": "prettier --write ."
+    "build-min": "browserify -p tinyify --standalone IC lib/index.js -o dist/ic-embed.min.js",
+    "lintfix": "prettier --write .",
+    "serve": "http-server .",
+    "test": "jest"
   },
   "devDependencies": {
     "@types/jest": "^27.0.3",
     "browserify": "^17.0.0",
+    "http-server": "^14.0.0",
     "jest": "^27.3.1",
     "prettier": "^2.5.0",
     "tinyify": "^3.0.0",
