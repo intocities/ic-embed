@@ -17,11 +17,18 @@ interface ChangeSceneMessage extends Message {
 }
 class Embed {
   options: Options
+  apiCredentials: ApiCredentials
 
-  constructor(iframe: HTMLIFrameElement) {
+  constructor(iframe: HTMLIFrameElement, apiCredentials: ApiCredentials) {
     if (!iframe || !iframe?.contentWindow?.postMessage) {
-      throw new TypeError('Parameter must be a HTMLIFrameElement!')
+      throw new TypeError('First parameter must be a HTMLIFrameElement!')
     }
+
+    if (!apiCredentials) {
+      throw new TypeError('Second parameter must be an ApiCredentials!')
+    }
+
+    this.apiCredentials = apiCredentials
 
     const options: Options = {
       iframe,
@@ -43,19 +50,21 @@ class Embed {
     )
   }
 
-  static init(container: HTMLElement, apiCredentials: ApiCredentials): Embed {
+  static initInContainer(container: HTMLElement, apiCredentials: ApiCredentials): Embed {
     const iframe = document.createElement('iframe')
     iframe.id = `ic-tour-${apiCredentials.id}`
-    iframe.src = apiCredentials.iframeUrl()
     iframe.allowFullscreen = true
     iframe.allow = 'fullscreen'
-    iframe.className = 'ic-embed__iframe'
 
-    container.replaceWith(iframe)
+    container.innerHTML = ''
+    container.appendChild(iframe)
 
-    const embed = new Embed(iframe)
+    return new Embed(iframe, apiCredentials)
+  }
 
-    return embed
+  mount(): void {
+    this.options.iframe.src = this.apiCredentials.iframeUrl()
+    this.options.iframe.className = 'ic-embed__iframe'
   }
 
   private assertAllowedOrigin(origin: string): void {

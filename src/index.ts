@@ -10,8 +10,25 @@ import ApiCredentials = require('./api_credentials')
 import Embed = require('./embed')
 import Preview = require('./preview')
 
-export function embed(iframe: HTMLIFrameElement): Embed {
-  return new Embed(iframe)
+interface EmbedParameters {
+  id: number
+  key: string
+  baseUrl: string
+}
+
+export function embed(iframe: HTMLIFrameElement,
+  { id, key, baseUrl }: EmbedParameters): Promise<Embed> {
+  const api = new ApiCredentials(id, key, baseUrl)
+
+  return api.validate().then((valid) => {
+    if (valid) {
+      const embed = new Embed(iframe, api)
+      embed.mount()
+      return embed
+    }
+    throw new Error('validation failed')
+  })
+
 }
 
 interface PreviewParameters {

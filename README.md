@@ -85,7 +85,7 @@ Returns an object containing the current URL parameters of the tour.
 
 In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you can keep the instance of the Virtual Tour but change the content on your site<sup>\*</sup>.
 
-<sup>\*</sup>Be aware of the problem of [keeping an `<iframe>` active during navigation](https://stackoverflow.com/questions/8318264/how-to-move-an-iframe-in-the-dom-without-losing-its-state#answer-8318401). Use [this Turbolinks version until the PR get's merged](https://github.com/turbolinks/turbolinks/pull/457) to work around that.
+<sup>\*</sup>Be aware of the problem of [keeping an `<iframe>` active during navigation](https://stackoverflow.com/questions/8318264/how-to-move-an-iframe-in-the-dom-without-losing-its-state#answer-8318401). Use [this Turbolinks version until the PR gets merged](https://github.com/turbolinks/turbolinks/pull/457) to work around that.
 
 ## Development
 
@@ -95,12 +95,8 @@ In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you c
 
 - [ ] specs: setup test for typescript code
 - [ ] specs: keep tests for JS public api (embed, preview, ...)
-
-- [ ] index.embed: change signature to use ApiCredentials
-- [ ] Embed: add specs public Embed methods
-- [ ] Embed: hide event-binding logic, provide ability to setup callback function (Embed#dispatchEvent)
-- [ ] Preview: test public Preview methods
 - [x] ApiCredentials: verify key + id upon creation
+- [x] index.embed: change signature to use ApiCredentials
 - [x] add styles via class names (append style element to head)
 
 - [ ] host minified script on intocities.com to allow inclusion via <script>.
@@ -114,10 +110,11 @@ In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you c
 - [ ] chore: setup CI/CD for linter and test runs
 - [ ] Preview+Embed: support setting of start scene and initial view direction
 - [ ] Embed: make communication (sendmessage) optional (default: disabled)
+- [ ] Embed: hide event-binding logic, provide ability to setup callback function (Embed#dispatchEvent)
+- [ ] Preview: add button hover styles
 
 ### P3
 
 - [ ] Preview: when container comes into the view, add preloads for tour
 - [ ] Embed: are more preloads needed?
-
 - [ ] ApiCredentials: rename? this contains URLs already ... should hold tour picture url etc, too, after verify

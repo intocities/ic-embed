@@ -8,8 +8,13 @@ class Preview {
   buttonText: string
   apiCredentials: ApiCredentials
   block: HTMLElement
+  embed: Embed
 
   constructor(container: HTMLElement, apiCredentials: ApiCredentials, buttonText: string) {
+    if (!container || !apiCredentials) {
+      throw new TypeError('Parameters must be a HTMLElement and ApiCredentials!')
+    }
+
     this.container = container
     this.apiCredentials = apiCredentials
     this.buttonText = buttonText
@@ -17,7 +22,7 @@ class Preview {
     this.preload()
 
     this.container.addEventListener('click', () => {
-      this.embed()
+      this.mountEmbed()
     })
   }
 
@@ -45,8 +50,14 @@ class Preview {
     this.container.appendChild(this.block)
   }
 
-  embed(): Embed {
-    return Embed.init(this.block, this.apiCredentials)
+  mountEmbed(): Embed {
+    if (this.embed) {
+      return this.embed
+    }
+
+    this.embed = Embed.initInContainer(this.block, this.apiCredentials)
+    this.embed.mount()
+    return this.embed
   }
 
   private preload(): void {

@@ -41,11 +41,19 @@ const css = `
   color: var(--ic-preview__button-color-front);
   background-color: var(--ic-preview__button-color-back);
   box-shadow: 0 0 1.5em 0 var(--ic-preview__button-color-back);
-  border: 1px solid var(--ic-preview__button-color-back);
+  border: 2px solid var(--ic-preview__button-color-back);
   border-radius: var(--ic-preview__button-border-radius);
 
   height: var(--ic-preview__button-height);
   width: var(--ic-preview__button-width);
+
+  transition: all 0.3s ease;
+}
+
+.ic-preview:focus .ic-preview__button,
+.ic-preview:hover .ic-preview__button {
+  box-shadow: 0 0 1.5em 0 var(--ic-preview__button-color-front);
+  border-color: var(--ic-preview__button-color-front);
 }
 
 .ic-embed__iframe {
@@ -53,8 +61,7 @@ const css = `
   height: 100%;
   border: none;
   overflow: hidden;
-}
-`
+}`
   .replace(/\n/g, '')
   .replace(/\s\s+/g, ' ')
   .trim()
