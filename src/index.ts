@@ -16,9 +16,15 @@ interface EmbedParameters {
   baseUrl: string
 }
 
-export function embed(iframe: HTMLIFrameElement,
-  { id, key, baseUrl }: EmbedParameters): Promise<Embed> {
-  const api = new ApiCredentials(id, key, baseUrl)
+export function apiCredentials(id: number, key: string, baseUrl = 'https://intocities.com'): ApiCredentials {
+  return new ApiCredentials(id, key, baseUrl)
+}
+
+export function embed(
+  iframe: HTMLIFrameElement,
+  { id, key, baseUrl = 'https://intocities.com' }: EmbedParameters
+): Promise<Embed> {
+  const api = apiCredentials(id, key, baseUrl)
 
   return api.validate().then((valid) => {
     if (valid) {
@@ -28,7 +34,6 @@ export function embed(iframe: HTMLIFrameElement,
     }
     throw new Error('validation failed')
   })
-
 }
 
 interface PreviewParameters {
@@ -42,7 +47,7 @@ export function preview(
   container: HTMLElement,
   { id, key, baseUrl = 'https://intocities.com', buttonText = 'Start Virtual Tour' }: PreviewParameters
 ): Promise<Preview> {
-  const api = new ApiCredentials(id, key, baseUrl)
+  const api = apiCredentials(id, key, baseUrl)
 
   return api.validate().then((valid) => {
     if (valid) {

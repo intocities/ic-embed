@@ -53,7 +53,6 @@ class ApiCredentials {
   baseUrl: string
   key: string
   id: number
-
   apiResponse: ApiResponse
 
   constructor(id: number, key: string, baseUrl: string) {
@@ -68,7 +67,7 @@ class ApiCredentials {
 
   async validate(): Promise<boolean> {
     if (!this.apiResponse) {
-      this.apiResponse = await this.fetchData()
+      this.apiResponse = await this.request()
     }
 
     return this.isValid()
@@ -86,7 +85,7 @@ class ApiCredentials {
     return this.apiResponse.poi.tour_present && this.apiResponse.poi.id === this.id
   }
 
-  private fetchData(): Promise<ApiResponse> {
+  private request(): Promise<ApiResponse> {
     return fetch(`${this.baseUrl}api/pois/${this.id}/embed/${this.key}`, {
       method: 'GET',
       mode: 'cors',

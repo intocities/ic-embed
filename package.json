@@ -16,10 +16,15 @@
     "test": "jest"
   },
   "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-typescript": "^7.16.0",
     "@types/jest": "^27.0.3",
+    "babel-jest": "^27.4.0",
     "browserify": "^17.0.0",
     "http-server": "^14.0.0",
     "jest": "^27.3.1",
+    "jest-fetch-mock": "^3.0.3",
     "prettier": "^2.5.0",
     "tinyify": "^3.0.0",
     "ts-node": "^10.4.0",
