@@ -91,25 +91,33 @@ In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you c
 
 ## TODO
 
-- [ ] docs: update README
-- [ ] docs: create demo pages
-- [ ] docs: describe how to adjust button colors
-- [ ] chore: setup CI/CD for linter and test runs
+### P1
+
 - [ ] specs: setup test for typescript code
 - [ ] specs: keep tests for JS public api (embed, preview, ...)
 
-- [ ] host it on intocities.com to allow inclusion via <script>.
-- [ ] adjust embedding instructions
-
 - [ ] index.embed: change signature to use ApiCredentials
 - [ ] Embed: add specs public Embed methods
-- [ ] Embed: are more preloads needed?
 - [ ] Embed: hide event-binding logic, provide ability to setup callback function (Embed#dispatchEvent)
-- [ ] Embed: make communication (sendmessage) optional (default: disabled)
 - [ ] Preview: test public Preview methods
-- [ ] Preview+Embed: support setting of start scene and initial view direction
-- [ ] Preview: when container comes into the view, add preloads for tour
+- [x] ApiCredentials: verify key + id upon creation
 - [x] add styles via class names (append style element to head)
 
-- [x] ApiCredentials: verify key + id upon creation
+- [ ] host minified script on intocities.com to allow inclusion via <script>.
+- [ ] docs: update README
+- [ ] docs: create demo pages
+- [ ] docs: adjust embedding instructions
+- [ ] docs: describe how to adjust button colors
+
+### P2
+
+- [ ] chore: setup CI/CD for linter and test runs
+- [ ] Preview+Embed: support setting of start scene and initial view direction
+- [ ] Embed: make communication (sendmessage) optional (default: disabled)
+
+### P3
+
+- [ ] Preview: when container comes into the view, add preloads for tour
+- [ ] Embed: are more preloads needed?
+
 - [ ] ApiCredentials: rename? this contains URLs already ... should hold tour picture url etc, too, after verify

@@ -1,15 +1,16 @@
 const css = `
-
 .ic-preview {
+  --ic-preview__button-color-back: hsl(0deg 0% 0% / 50%);
+  --ic-preview__button-color-front: hsl(0deg 0% 100% / 100%);
+  --ic-preview__button-width: 10em;
+  --ic-preview__button-height: 10em;
+  --ic-preview__button-border-radius: 50%;
+
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
   cursor: pointer;
-
-  --ic-preview__button-color-back: hsl(0deg 0% 0% / 50%);
-  --ic-preview__button-color-front: hsl(0deg 0% 100% / 100%);
-  --ic-preview__button-size: 10em;
 }
 
 .ic-preview__wrapper {
@@ -39,12 +40,12 @@ const css = `
 
   color: var(--ic-preview__button-color-front);
   background-color: var(--ic-preview__button-color-back);
-  box-shadow: 0 0 20px 0px var(--ic-preview__button-color-back);
+  box-shadow: 0 0 1.5em 0 var(--ic-preview__button-color-back);
   border: 1px solid var(--ic-preview__button-color-back);
-  border-radius: 50%;
+  border-radius: var(--ic-preview__button-border-radius);
 
-  height: var(--ic-preview__button-size);
-  width: var(--ic-preview__button-size);
+  height: var(--ic-preview__button-height);
+  width: var(--ic-preview__button-width);
 }
 
 .ic-embed__iframe {
