@@ -47,17 +47,22 @@ describe('#params', () => {
 })
 
 describe('#changeScene', () => {
-  it('works with sceneId', () => {
+  it('works with valid parameters', () => {
     const embed = Embed.initInContainer(document.querySelector('div'), credentials)
 
     embed.postMessage = jest.fn()
 
     expect(embed.changeScene('scene_sc23')).toEqual({ name: 'changeScene', sceneId: 'scene_sc23' })
-    expect(() => embed.changeScene('scene_sc23', 0)).toBeTruthy()
-    expect(() => embed.changeScene('scene_sc23', 0, 0)).toBeTruthy()
-    expect(() => embed.changeScene('scene_sc23', '0', 0)).toBeTruthy()
-    expect(() => embed.changeScene('scene_sc23', 0, '0')).toBeTruthy()
-    expect(() => embed.changeScene('scene_sc23', '0', '0')).toBeTruthy()
+    expect(embed.changeScene('scene_sc23', 0)).toEqual({ name: 'changeScene', sceneId: 'scene_sc23', ath: 0 })
+
+    const message = { name: 'changeScene', sceneId: 'scene_sc23', ath: 0, atv: 0 }
+
+    expect(embed.changeScene('scene_sc23', 0, 0)).toEqual(message)
+    expect(embed.changeScene('scene_sc23', '0', 0)).toEqual(message)
+    expect(embed.changeScene('scene_sc23', 0, '0')).toEqual(message)
+    expect(embed.changeScene('scene_sc23', '0', '0')).toEqual(message)
+
+    expect(embed.postMessage.mock.calls.length).toBe(6)
   })
 
   it('throws specific errors with messages', () => {
@@ -69,5 +74,7 @@ describe('#changeScene', () => {
     expect(() => embed.changeScene('scene_sc23', false)).toThrow(/ath/)
     expect(() => embed.changeScene('scene_sc23', 0, false)).toThrow(/atv/)
     expect(() => embed.changeScene('scene_sc23', '0', false)).toThrow(/atv/)
+
+    expect(embed.postMessage.mock.calls.length).toBe(0)
   })
 })

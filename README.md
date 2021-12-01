@@ -93,8 +93,8 @@ In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you c
 
 ### P1
 
-- [ ] specs: setup test for typescript code
-- [ ] specs: keep tests for JS public api (embed, preview, ...)
+- [ ] specs: add for apicredentials
+- [x] specs: keep tests for JS public api (embed, preview, ...)
 - [x] ApiCredentials: verify key + id upon creation
 - [x] index.embed: change signature to use ApiCredentials
 - [x] add styles via class names (append style element to head)
