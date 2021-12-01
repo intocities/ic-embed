@@ -1,4 +1,4 @@
-import ApiCredentials = require('./api_credentials')
+import ApiCredentials from './api_credentials'
 import { addStyles } from './styles'
 
 interface Options {
@@ -37,8 +37,6 @@ class Embed {
 
     this.options = options
 
-    console.log('ICEmbed initialized with options', this.options)
-
     addStyles()
 
     window.addEventListener(
@@ -62,9 +60,10 @@ class Embed {
     return new Embed(iframe, apiCredentials)
   }
 
-  mount(): void {
+  mount(): HTMLIFrameElement {
     this.options.iframe.src = this.apiCredentials.iframeUrl()
     this.options.iframe.className = 'ic-embed__iframe'
+    return this.options.iframe
   }
 
   private assertAllowedOrigin(origin: string): void {
@@ -112,27 +111,36 @@ class Embed {
     return returnObj
   }
 
-  changeScene(sceneId: string, ath?: number | string, atv?: number | string): void {
-    if (typeof ath === 'string') {
-      ath = parseFloat(ath)
-    } else if (typeof ath !== 'number') {
-      throw new TypeError('ath must be number or string')
+  changeScene(sceneId: string, ath?: number | string, atv?: number | string): ChangeSceneMessage {
+    if (!sceneId) {
+      throw new TypeError('sceneId is required!')
     }
 
-    if (typeof atv === 'string') {
-      atv = parseFloat(atv)
-    } else if (typeof atv !== 'number') {
-      throw new TypeError('atv must be number or string')
+    const message: ChangeSceneMessage = { name: 'changeScene', sceneId }
+
+    if (ath != undefined) {
+      if (typeof ath === 'string') {
+        message.ath = parseFloat(ath)
+      } else if (typeof ath === 'number') {
+        message.ath = ath
+      } else {
+        throw new TypeError('ath must be number or string')
+      }
     }
 
-    const message: ChangeSceneMessage = {
-      name: 'changeScene',
-      sceneId,
-      ath,
-      atv
+    if (atv != undefined) {
+      if (typeof atv === 'string') {
+        message.atv = parseFloat(atv)
+      } else if (typeof atv === 'number') {
+        message.atv = atv
+      } else {
+        throw new TypeError('atv must be number or string')
+      }
     }
 
     this.postMessage(message)
+
+    return message
   }
 }
 

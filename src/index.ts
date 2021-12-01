@@ -32,7 +32,7 @@ export function embed(
       embed.mount()
       return embed
     }
-    throw new Error('validation failed')
+    throw new Error('invalid credentials')
   })
 }
 
@@ -55,6 +55,6 @@ export function preview(
       preview.mount()
       return preview
     }
-    throw new Error('validation failed')
+    throw new Error('invalid credentials')
   })
 }

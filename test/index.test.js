@@ -1,29 +1,48 @@
 const IC = require('../lib/index')
 
-test('', () => {
-  expect(IC).toHaveProperty('embed')
-  expect(IC).toHaveProperty('preview')
+describe('IC', () => {
+  it('has properties', () => {
+    expect(IC).toHaveProperty('embed')
+    expect(IC).toHaveProperty('preview')
+  })
 })
 
+let credentials = { id: 42, key: 'something' }
+
 describe('IC.embed', () => {
-  const credentials = { id: 42, key: 'something' }
-  const iframe = document.createElement('iframe')
-
-  it('throws an error w/ message', () => {
-    // @ts-ignore
-    fetch.mockResponseOnce(JSON.stringify({ poi: { id: 42, tour_present: true }, origin: null }))
-
-    return IC.embed(iframe, credentials).catch((e) => expect(e.message).toMatch(/validation/))
+  beforeEach(() => {
+    window.document.body.appendChild(document.createElement('iframe'))
   })
 
-  it('returns an instance of Embed', async () => {
+  it('rejects with an error message', () => {
     // @ts-ignore
-    fetch.mockResponseOnce(JSON.stringify({ poi: { id: 42, tour_present: true }, origin: 'https://localhost' }))
+    fetch.mockResponseOnce(JSON.stringify({ poi: { id: 42, tour_present: true }, origin: 'https://example.com' }))
 
-    const embed = IC.embed(iframe, credentials)
+    return expect(IC.embed(document.querySelector('iframe'), credentials)).rejects.toThrow(/origin/)
+  })
 
-    expect(embed).resolves.toHaveProperty('mount')
-    expect(embed).resolves.toHaveProperty('params')
-    expect(embed).resolves.toHaveProperty('changeScene')
+  it('resolves an object with changeScene property', () => {
+    // @ts-ignore
+    fetch.mockResponseOnce(JSON.stringify({ poi: { id: 42, tour_present: true }, origin: window.location.origin }))
+
+    return expect(IC.embed(document.querySelector('iframe'), credentials)).resolves.toHaveProperty('changeScene')
+  })
+})
+
+describe('IC.preview', () => {
+  beforeEach(() => {
+    window.document.body.appendChild(document.createElement('div'))
+  })
+
+  it('resolves an object with mount property', () => {
+    // @ts-ignore
+    fetch.mockResponseOnce(
+      JSON.stringify({
+        poi: { id: 42, tour_present: true, thumbnail_urls: { landscape: 'dummy.png' } },
+        origin: window.location.origin
+      })
+    )
+
+    return expect(IC.preview(document.querySelector('div'), credentials)).resolves.toHaveProperty('mount')
   })
 })

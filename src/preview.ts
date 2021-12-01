@@ -1,7 +1,7 @@
-import ApiCredentials = require('./api_credentials')
-import Embed = require('./embed')
+import ApiCredentials from './api_credentials'
+import Embed from './embed'
 import { addStyles } from './styles'
-import Utils = require('./utils')
+import { batchAddLinksToHead } from './utils'
 
 class Preview {
   container: HTMLElement
@@ -26,7 +26,13 @@ class Preview {
     })
   }
 
-  mount(): void {
+  /**
+   *
+   *
+   * @return {*} the container {HTMLElement}
+   * @memberof Preview
+   */
+  mount(): HTMLElement {
     addStyles()
 
     this.block = document.createElement('div')
@@ -48,8 +54,16 @@ class Preview {
     wrapper.appendChild(img)
     this.block.appendChild(wrapper)
     this.container.appendChild(this.block)
+
+    return this.container
   }
 
+  /**
+   * Embeds the virtual tour via iframe.
+   *
+   * @return {*}  {Embed}
+   * @memberof Preview
+   */
   mountEmbed(): Embed {
     if (this.embed) {
       return this.embed
@@ -61,7 +75,7 @@ class Preview {
   }
 
   private preload(): void {
-    Utils.batchAddLinksToHead([
+    batchAddLinksToHead([
       { rel: 'preconnect', href: this.apiCredentials.baseUrl },
       { rel: 'dns-prefetch', href: this.apiCredentials.cdnUrl },
       { rel: 'preload', href: this.imageUrl, as: 'image' }

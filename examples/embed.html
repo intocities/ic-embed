@@ -11,12 +11,18 @@
   <body>
     <iframe src="#"></iframe>
     <script>
-      window.embed = IC.embed(document.querySelector('iframe'), {
+      IC.embed(document.querySelector('iframe'), {
         id: 2,
         key: 'deadc0de-37a2-4697-95a8-403b9a5e88f8',
         baseUrl: 'http://127.0.0.1:10000/'
       })
-      console.log(IC, embed)
+        .then((embed) => {
+          console.log(IC, embed)
+          window.embed = embed
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     </script>
   </body>
 </html>

@@ -112,7 +112,7 @@ class ApiCredentials {
   }
 
   public iframeUrl(): string {
-    return `${this.baseUrl}/embed/${this.id.toString()}/${this.key}`
+    return `${this.baseUrl}embed/${this.id.toString()}/${this.key}`
   }
 }
 
