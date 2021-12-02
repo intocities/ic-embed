@@ -34,7 +34,7 @@ describe('Embed.initInContainer', () => {
     const iframe = document.querySelector('iframe')
     expect(iframe.className).toBe('ic-embed__iframe')
     expect(iframe.id).toContain('ic-tour-')
-    expect(iframe.src).toEqual(credentials.iframeUrl())
+    expect(iframe.src).toEqual(credentials.iframeUrl)
     expect(iframe.allow).toBe('fullscreen')
   })
 })

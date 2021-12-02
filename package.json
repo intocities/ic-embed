@@ -9,8 +9,9 @@
   "author": "Durch die Stadt <support@durchdiestadt.de>",
   "license": "MIT",
   "scripts": {
-    "build": "yarn run tsc && yarn build-min",
-    "build-min": "browserify -p tinyify --standalone IC lib/index.js -o dist/ic-embed.min.js",
+    "build": "yarn run tsc && yarn bundle",
+    "bundle": "browserify -p tinyify --standalone IC lib/index.js -o dist/ic-embed.min.js",
+    "lint": "prettier --check .",
     "lintfix": "prettier --write .",
     "serve": "http-server .",
     "test": "jest"
@@ -27,7 +28,6 @@
     "jest-fetch-mock": "^3.0.3",
     "prettier": "^2.5.0",
     "tinyify": "^3.0.0",
-    "ts-node": "^10.4.0",
     "typescript": "^4.5.2"
   },
   "browserslist": [

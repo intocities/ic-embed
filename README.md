@@ -1,19 +1,21 @@
 # ic-embed
 
-`ic-embed` allows you to use your _[IntoCities](https://intocities.com/) Virtual Tour_ on your website.
+`ic-embed` allows you to use your [**IntoCities** _Virtual Tour_](https://intocities.com/) on your website.
 
-In general, we recommend to use the _preview_ function to enrich your website with the tour.
-When you use the preview function, only a nice teaser is displayed. When the user clicks or taps on the teaser, the fully interactive virtual tour loads. The preview function causes only a small network load, which is usually desirable.
+In general, we recommend to use the _preview_ function to include the tour on your website.
+The preview function displays only a teaser with a 'Start Tour' button. When the user clicks or taps it, the fully interactive virtual tour loads. The preview function causes only a small network load, which is usually desirable. See chapter [Preview](#preview).
 
-Of course, you can also embed it directly so that the tour starts right away.
+You can also embed it directly so that the tour starts right away. See chapter [Embed](#embed).
 
-You can also use this script to programmatically interact with the embedded tour, for example to change the scene. It can also notify you when the user has navigated within the tour and triggered a scene change.
+This script also enables you to programmatically interact with the embedded tour, for example to change the scene. It also notifies you when the user has navigated within the tour and triggered a scene change. See chapter [Advanced Usage](#advanced-usage) in Embed.
 
 ## Preview
 
 1. add an empty div element at the position you'd like to show your virtual tour.
 2. load the script on your website:
+   ```html
    <script src="/path/to/ic-embed.min.js"></script>
+   ```
 3. initialize in your Javascript
    ```javascript
    IC.preview(document.querySelector('div'), {
@@ -26,7 +28,7 @@ See example file: [`examples/preview.html`](examples/preview.html).
 
 ### Changing the appearance
 
-The Preview function utilizes some CSS variables. Via this variables, you can change the appearance by overruling them. See `src/styles.ts` or investigate in the web developer console on your site using the _ic-embed Preview_.
+The Preview function utilizes some CSS variables. Via this variables, you can change the appearance by overruling them. See `src/styles.ts` or investigate in the web developer console on your site which uses the _ic-embed Preview_.
 
 ## Embed
 
@@ -34,7 +36,9 @@ Similar to _Preview_ above, but call `IC.embed`:
 
 1. add an empty div element at the position you'd like to show your virtual tour.
 2. load the script on your website:
+   ```html
    <script src="/path/to/ic-embed.min.js"></script>
+   ```
 3. initialize in your Javascript
    ```javascript
    IC.embed(document.querySelector('div'), {
@@ -75,11 +79,11 @@ A API call can lead to an event. Make sure not to end in a loop.
 
 Returns an object containing the current URL parameters of the tour, which can contain `sceneId`, `ath`, `atv` and `z` (= zoom).
 
-## Advanced usage
+### Advanced usage
 
 There are many possibilities to build a great user experience with your tour. The virtual tour will help you tremendously to showcase your location.
 
-### Flow when using the API
+#### Data flow when using the API
 
 When you want the Virtual Tour to change, you can use the API to do so.
 
@@ -95,7 +99,7 @@ You can also synchronously request information from the Virtual Tour.
 [Your Website] <------------ [Virtual Tour]
 ```
 
-### Flow of events
+#### Data flow of events
 
 Events communicate **from** the Virtual Tour **to** your website.
 
@@ -105,7 +109,7 @@ Events communicate **from** the Virtual Tour **to** your website.
 
 It's up to you _if_ and _how_ to handle them.
 
-### Idea: keep the embedded tour while navigating on _your_ website
+#### Idea: keep the embedded tour while navigating on _your_ website
 
 In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you can keep the instance of the Virtual Tour but change current page on your site<sup>\*</sup>.
 
@@ -123,7 +127,7 @@ ic-embed is written in _Typescript_. The build is a bundled script (created with
 The generated JS is tested with _Jest_. The files are formatted with _prettier_.
 
 1. Checkout the repo and `yarn install`.
-2. To run the test: `yarn test` or build: `yarn build`.
+2. To run the tests: `yarn test` or build and bundle: `yarn build`.
 3. See other `"scripts"` to run in `package.json`.
 
 When developing, `yarn test --watch` watches for changes and runs the tests automatically.
@@ -139,6 +143,7 @@ When developing, `yarn test --watch` watches for changes and runs the tests auto
 - [x] add styles via class names (append style element to head)
 
 - [x] docs: update README
+- [ ] docs: add a demo GIF for preview
 - [ ] docs: create demo pages
 - [x] docs: adjust embedding instructions
 - [x] docs: describe how to adjust button colors
@@ -150,7 +155,8 @@ When developing, `yarn test --watch` watches for changes and runs the tests auto
 - [ ] Embed: make communication (sendmessage) optional (default: disabled)
 - [ ] Embed: hide event-binding logic, provide ability to setup callback function (Embed#dispatchEvent)
 - [ ] Preview: add button hover styles
-- [ ] host minified script with stable url on intocities.com to allow inclusion via <script>.
+- [ ] host minified script with stable url on intocities.com to allow inclusion via `<script>`; change examples in README
+- [ ] add usage information to customer info sheet
 
 ### P3
 
