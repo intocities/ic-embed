@@ -70,12 +70,22 @@ class ApiCredentials {
       this.apiResponse = await this.request()
     }
 
-    return this.isValid()
+    return new Promise((resolve, reject) => {
+      try {
+        if (this.isValid()) {
+          resolve(true)
+        } else {
+          throw new Error('invalid credentials')
+        }
+      } catch (e) {
+        reject(e)
+      }
+    })
   }
 
   private isValid(): boolean {
-    if (!this.apiResponse?.poi) {
-      return false
+    if (!this.apiResponse) {
+      throw new Error('must call validate() before calling isValid().')
     }
 
     if (typeof this.apiResponse.origin === 'string' && this.apiResponse.origin !== window.location.origin) {
@@ -107,11 +117,11 @@ class ApiCredentials {
       })
   }
 
-  public get cdnUrl(): string {
+  public static get cdnUrl(): string {
     return 'https://cdn.intocities.com'
   }
 
-  public iframeUrl(): string {
+  public get iframeUrl(): string {
     return `${this.baseUrl}embed/${this.id.toString()}/${this.key}`
   }
 }

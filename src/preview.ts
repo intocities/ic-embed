@@ -77,7 +77,7 @@ class Preview {
   private preload(): void {
     batchAddLinksToHead([
       { rel: 'preconnect', href: this.apiCredentials.baseUrl },
-      { rel: 'dns-prefetch', href: this.apiCredentials.cdnUrl },
+      { rel: 'dns-prefetch', href: ApiCredentials.cdnUrl },
       { rel: 'preload', href: this.imageUrl, as: 'image' }
     ])
   }

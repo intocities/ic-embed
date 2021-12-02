@@ -15,6 +15,7 @@ interface ChangeSceneMessage extends Message {
   ath?: number
   atv?: number
 }
+
 class Embed {
   options: Options
   apiCredentials: ApiCredentials
@@ -61,7 +62,7 @@ class Embed {
   }
 
   mount(): HTMLIFrameElement {
-    this.options.iframe.src = this.apiCredentials.iframeUrl()
+    this.options.iframe.src = this.apiCredentials.iframeUrl
     this.options.iframe.className = 'ic-embed__iframe'
     return this.options.iframe
   }

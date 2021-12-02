@@ -93,13 +93,12 @@ In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you c
 
 ### P1
 
-- [ ] specs: add for apicredentials
+- [x] specs: add for apicredentials
 - [x] specs: keep tests for JS public api (embed, preview, ...)
 - [x] ApiCredentials: verify key + id upon creation
 - [x] index.embed: change signature to use ApiCredentials
 - [x] add styles via class names (append style element to head)
 
-- [ ] host minified script on intocities.com to allow inclusion via <script>.
 - [ ] docs: update README
 - [ ] docs: create demo pages
 - [ ] docs: adjust embedding instructions
@@ -112,6 +111,7 @@ In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you c
 - [ ] Embed: make communication (sendmessage) optional (default: disabled)
 - [ ] Embed: hide event-binding logic, provide ability to setup callback function (Embed#dispatchEvent)
 - [ ] Preview: add button hover styles
+- [ ] host minified script with stable url on intocities.com to allow inclusion via <script>.
 
 ### P3
 
