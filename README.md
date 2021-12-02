@@ -1,57 +1,85 @@
 # ic-embed
 
-This script allows communication with your embedded IntoCities Virtual Tour
-from your website. If you just want to embed your Virtual Tour, you do not need this script.
+`ic-embed` allows you to use your _[IntoCities](https://intocities.com/) Virtual Tour_ on your website.
 
-Features:
+In general, we recommend to use the _preview_ function to enrich your website with the tour.
+When you use the preview function, only a nice teaser is displayed. When the user clicks or taps on the teaser, the fully interactive virtual tour loads. The preview function causes only a small network load, which is usually desirable.
 
-- react to scene changes
-- change the current scene and view from your website.
+Of course, you can also embed it directly so that the tour starts right away.
 
-## Usage
+You can also use this script to programmatically interact with the embedded tour, for example to change the scene. It can also notify you when the user has navigated within the tour and triggered a scene change.
 
-1. add the `<iframe>` HTML code to your page which we provided to you
-2. Load the script on your website:
-   `yarn add git+https://git@github.com/intocities/ic-embed.git`
+## Preview
 
-   ```html
-   <script src="dist/ic-embed.min.js" type="text/javascript"></script>
-   ```
-
-3. initialize `ICEmbed`
+1. add an empty div element at the position you'd like to show your virtual tour.
+2. load the script on your website:
+   <script src="/path/to/ic-embed.min.js"></script>
+3. initialize in your Javascript
    ```javascript
-   var iframe = document.querySelector('iframe')
-   var icEmbed = new ICEmbed(iframe)
+   IC.preview(document.querySelector('div'), {
+     id: 1, // change to your ID
+     key: '...' // change to your key
+   })
    ```
 
-## Browser compatibility
+See example file: [`examples/preview.html`](examples/preview.html).
 
-For compatibility with IE11 you need to [polyfill `CustomEvent`](https://github.com/kumarharsh/custom-event-polyfill) and [`Object.assign`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign).
+### Changing the appearance
 
-This script relies on [Window.postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) which is [widely supported](https://caniuse.com/#feat=x-doc-messaging).
+The Preview function utilizes some CSS variables. Via this variables, you can change the appearance by overruling them. See `src/styles.ts` or investigate in the web developer console on your site using the _ic-embed Preview_.
 
-## Events
+## Embed
 
-Events communicate from the Virtual Tour **to** your website. It's up to you to handle them.
+Similar to _Preview_ above, but call `IC.embed`:
 
-```
-[Your Website] <------------ [Virtual Tour]
-```
+1. add an empty div element at the position you'd like to show your virtual tour.
+2. load the script on your website:
+   <script src="/path/to/ic-embed.min.js"></script>
+3. initialize in your Javascript
+   ```javascript
+   IC.embed(document.querySelector('div'), {
+     id: 1, // change to your ID
+     key: '...' // change to your key
+   })
+   ```
+
+See example file: [`examples/embed.html`](examples/embed.html).
+
+### React to events
 
 After initialization, the `iframe` element will receive events when the Virtual Tour does something.
 
 ```javascript
-var iframe = document.querySelector('iframe')
+const iframe = document.querySelector('iframe')
 
 iframe.addEventListener('ic.sceneChanged', function (event) {
-  var details = event.detail
-  var sceneId = details.sceneId
+  const details = event.detail
 
   console.log('ic.sceneChanged', details)
 })
 ```
 
-## API Doc
+### Using the embed API
+
+A API call can lead to an event. Make sure not to end in a loop.
+
+#### `changeScene(sceneId, ath, atv)`
+
+| Parameter | Type          | Required? | Description                   |
+| --------- | ------------- | --------- | ----------------------------- |
+| `sceneId` | String        | **yes**   | Name of the scene to display. |
+| `ath`     | Number/String | no        | horizontal view direction     |
+| `atv`     | Number/String | no        | vertical view direction       |
+
+#### `params`
+
+Returns an object containing the current URL parameters of the tour, which can contain `sceneId`, `ath`, `atv` and `z` (= zoom).
+
+## Advanced usage
+
+There are many possibilities to build a great user experience with your tour. The virtual tour will help you tremendously to showcase your location.
+
+### Flow when using the API
 
 When you want the Virtual Tour to change, you can use the API to do so.
 
@@ -67,27 +95,38 @@ You can also synchronously request information from the Virtual Tour.
 [Your Website] <------------ [Virtual Tour]
 ```
 
-A API call can lead to an event. Make sure not to end in a loop.
+### Flow of events
 
-### `changeScene(sceneId, ath, atv)`
+Events communicate **from** the Virtual Tour **to** your website.
 
-| Parameter | Type   | Required? | Description                   |
-| --------- | ------ | --------- | ----------------------------- |
-| `sceneId` | String | **yes**   | Name of the scene to display. |
-| `ath`     | Float  | no        | horizontal view direction     |
-| `atv`     | Float  | no        | vertical view direction       |
+```
+[Your Website] <------------ [Virtual Tour]
+```
 
-### `params`
+It's up to you _if_ and _how_ to handle them.
 
-Returns an object containing the current URL parameters of the tour.
+### Idea: keep the embedded tour while navigating on _your_ website
 
-## Advanced usage
-
-In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you can keep the instance of the Virtual Tour but change the content on your site<sup>\*</sup>.
+In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you can keep the instance of the Virtual Tour but change current page on your site<sup>\*</sup>.
 
 <sup>\*</sup>Be aware of the problem of [keeping an `<iframe>` active during navigation](https://stackoverflow.com/questions/8318264/how-to-move-an-iframe-in-the-dom-without-losing-its-state#answer-8318401). Use [this Turbolinks version until the PR gets merged](https://github.com/turbolinks/turbolinks/pull/457) to work around that.
 
+### Browser compatibility
+
+This script relies on [Window.postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) which is [widely supported](https://caniuse.com/#feat=x-doc-messaging).
+
+We do not recommend to support the IE11.
+
 ## Development
+
+ic-embed is written in _Typescript_. The build is a bundled script (created with _browserify_) which is minified.
+The generated JS is tested with _Jest_. The files are formatted with _prettier_.
+
+1. Checkout the repo and `yarn install`.
+2. To run the test: `yarn test` or build: `yarn build`.
+3. See other `"scripts"` to run in `package.json`.
+
+When developing, `yarn test --watch` watches for changes and runs the tests automatically.
 
 ## TODO
 
@@ -99,10 +138,10 @@ In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you c
 - [x] index.embed: change signature to use ApiCredentials
 - [x] add styles via class names (append style element to head)
 
-- [ ] docs: update README
+- [x] docs: update README
 - [ ] docs: create demo pages
-- [ ] docs: adjust embedding instructions
-- [ ] docs: describe how to adjust button colors
+- [x] docs: adjust embedding instructions
+- [x] docs: describe how to adjust button colors
 
 ### P2
 
