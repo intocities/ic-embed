@@ -7,7 +7,7 @@
     "dist"
   ],
   "author": "Durch die Stadt <support@durchdiestadt.de>",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "scripts": {
     "build": "yarn run tsc && yarn bundle",
     "bundle": "browserify -p tinyify --standalone IC lib/index.js -o dist/ic-embed.min.js",
