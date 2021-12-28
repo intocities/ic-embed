@@ -71,6 +71,6 @@ describe('preview#mountEmbed()', () => {
     const embed = preview.mountEmbed()
 
     expect(document.querySelector('iframe')).toBeTruthy()
-    expect(embed).toHaveProperty('changeScene')
+    expect(embed.tour).toHaveProperty('changeScene')
   })
 })

@@ -39,42 +39,18 @@ describe('Embed.initInContainer', () => {
   })
 })
 
-describe('#params', () => {
-  it('returns an object', () => {
-    const embed = Embed.initInContainer(document.querySelector('div'), credentials)
-    expect(embed.params()).toEqual({})
-  })
-})
-
-describe('#changeScene', () => {
-  it('works with valid parameters', () => {
-    const embed = Embed.initInContainer(document.querySelector('div'), credentials)
-
-    embed.postMessage = jest.fn()
-
-    expect(embed.changeScene('scene_sc23')).toEqual({ name: 'changeScene', sceneId: 'scene_sc23' })
-    expect(embed.changeScene('scene_sc23', 0)).toEqual({ name: 'changeScene', sceneId: 'scene_sc23', ath: 0 })
-
-    const message = { name: 'changeScene', sceneId: 'scene_sc23', ath: 0, atv: 0 }
-
-    expect(embed.changeScene('scene_sc23', 0, 0)).toEqual(message)
-    expect(embed.changeScene('scene_sc23', '0', 0)).toEqual(message)
-    expect(embed.changeScene('scene_sc23', 0, '0')).toEqual(message)
-    expect(embed.changeScene('scene_sc23', '0', '0')).toEqual(message)
-
-    expect(embed.postMessage.mock.calls.length).toBe(6)
+describe('.urlWithTourOptions', () => {
+  it('adds just permitted attributes', () => {
+    const url = Embed.urlWithTourOptions('http://example.com/resource', {
+      scene: 'c1234/scene_sc3_Overlay_1',
+      ath: 3,
+      baz: '?'
+    })
+    expect(url).toBe('http://example.com/resource#scene=c1234%2Fscene_sc3_Overlay_1&ath=3')
   })
 
-  it('throws specific errors with messages', () => {
-    const embed = Embed.initInContainer(document.querySelector('div'), credentials)
-
-    embed.postMessage = jest.fn()
-
-    expect(() => embed.changeScene()).toThrow(/sceneId/)
-    expect(() => embed.changeScene('scene_sc23', false)).toThrow(/ath/)
-    expect(() => embed.changeScene('scene_sc23', 0, false)).toThrow(/atv/)
-    expect(() => embed.changeScene('scene_sc23', '0', false)).toThrow(/atv/)
-
-    expect(embed.postMessage.mock.calls.length).toBe(0)
+  it('adds no attributes', () => {
+    const url = Embed.urlWithTourOptions('http://example.com/resource')
+    expect(url).toBe('http://example.com/resource')
   })
 })

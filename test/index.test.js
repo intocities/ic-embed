@@ -25,7 +25,7 @@ describe('IC.embed', () => {
     // @ts-ignore
     fetch.mockResponseOnce(JSON.stringify({ poi: { id: 42, tour_present: true }, origin: window.location.origin }))
 
-    return expect(IC.embed(document.querySelector('iframe'), credentials)).resolves.toHaveProperty('changeScene')
+    return expect(IC.embed(document.querySelector('iframe'), credentials)).resolves.toHaveProperty('tour')
   })
 })
 

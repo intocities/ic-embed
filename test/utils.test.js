@@ -1,17 +1,18 @@
-const { urlWithTourOptions } = require('../lib/utils')
+const { batchAddLinksToHead } = require('../lib/utils')
 
-describe('urlWithTourOptions', () => {
-  it('adds just permitted attributes', () => {
-    const url = urlWithTourOptions('http://example.com/resource', {
-      scene: 'c1234/scene_sc3_Overlay_1',
-      ath: 3,
-      baz: '?'
-    })
-    expect(url).toBe('http://example.com/resource#scene=c1234%2Fscene_sc3_Overlay_1&ath=3')
-  })
+beforeEach(() => {
+  document.head.innerHTML = ''
+  document.body.innerHTML = '<div></div>'
+})
 
-  it('adds no attributes', () => {
-    const url = urlWithTourOptions('http://example.com/resource')
-    expect(url).toBe('http://example.com/resource')
+describe('.batchAddLinksToHead', () => {
+  it('adds them to document.head', () => {
+    batchAddLinksToHead([
+      { rel: 'preconnect', href: 'https://example.com' },
+      { rel: 'preconnect', href: 'https://example.org' }
+    ])
+
+    expect(document.querySelector('link[rel="preconnect"][href="https://example.com"]')).toBeInstanceOf(HTMLLinkElement)
+    expect(document.querySelector('link[rel="preconnect"][href="https://example.org"]')).toBeInstanceOf(HTMLLinkElement)
   })
 })

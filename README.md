@@ -49,23 +49,37 @@ Similar to _Preview_ above, but call `IC.embed`:
 
 See example file: [`examples/embed.html`](examples/embed.html).
 
-### React to events
+## Subscribing to events
 
-After initialization, the `iframe` element will receive events when the Virtual Tour does something.
+After embedding, the `iframe` element will receive events when the Virtual Tour changed.
+
+#### List of available events
+
+- `sceneChanged`
+
+#### Usage example
 
 ```javascript
 const iframe = document.querySelector('iframe')
 
-iframe.addEventListener('ic.sceneChanged', function (event) {
+iframe.addEventListener('sceneChanged', (event) => {
   const details = event.detail
 
-  console.log('ic.sceneChanged', details)
+  console.log('sceneChanged', details)
 })
 ```
 
-### Using the embed API
+## Using the Tour API
 
-A API call can lead to an event. Make sure not to end in a loop.
+For the tour API to function, the iframe must have been loaded (e.g. the start button in Preview has been clicked or the virtual has been embedded via `IC.embed`).
+
+If the tour has been embedded directly, you can get access to the api via `embed.tour`.
+
+If using the preview function and have just the reference to `preview`, access the tour API via: `preview.embed.tour`
+
+Please note: an API call can lead to an event in return. Make sure not to end in a loop.
+
+### API functions
 
 #### `changeScene(sceneId, ath, atv)`
 
@@ -149,8 +163,8 @@ When developing, `yarn test --watch` watches for changes and runs the tests auto
 ### P2
 
 - [x] Preview+Embed: support setting of start scene and initial view direction
-- [ ] Embed: make communication (sendmessage) optional (default: disabled)
-- [ ] Embed: hide event-binding logic, provide ability to setup callback function (Embed#dispatchEvent)
+- [x] Embed: make communication (sendmessage) optional (default: disabled)
+- [x] Embed: hide event-binding logic
 - [ ] Preview: add button hover styles
 - [ ] chore: setup CI/CD for linter and test runs
 - [ ] host minified script with stable url on intocities.com to allow inclusion via `<script>`; change examples in README
@@ -162,3 +176,4 @@ When developing, `yarn test --watch` watches for changes and runs the tests auto
 - [ ] Preview: when container comes into the view, add preloads for tour
 - [ ] Embed: are more preloads needed?
 - [ ] ApiCredentials: rename? this contains URLs already ... should hold tour picture url etc, too, after verify
+- [ ] Tour: provide ability to setup callback functions (instead of dispatching events to the iframe)

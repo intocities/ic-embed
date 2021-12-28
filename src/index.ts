@@ -9,21 +9,17 @@ import { ApiCredentials, ApiParameters } from './api_credentials'
 import { Embed, TourOptions } from './embed'
 import { Preview, PreviewOptions } from './preview'
 
-export function apiCredentials(id: number, key: string, baseUrl: string): ApiCredentials {
-  return new ApiCredentials(id, key, baseUrl)
-}
-
 export function embed(
   iframe: HTMLIFrameElement,
   { id, key, baseUrl = 'https://intocities.com' }: ApiParameters,
   tourOptions?: TourOptions
 ): Promise<Embed> {
-  const api = apiCredentials(id, key, baseUrl)
+  const credentials = new ApiCredentials(id, key, baseUrl)
 
-  return api
+  return credentials
     .validate()
     .then(() => {
-      const embed = new Embed(iframe, api, tourOptions)
+      const embed = new Embed(iframe, credentials, tourOptions)
       embed.mount()
       return embed
     })
@@ -37,12 +33,12 @@ export function preview(
   { id, key, baseUrl = 'https://intocities.com' }: ApiParameters,
   tourOptions?: PreviewOptions
 ): Promise<Preview> {
-  const api = apiCredentials(id, key, baseUrl)
+  const credentials = new ApiCredentials(id, key, baseUrl)
 
-  return api
+  return credentials
     .validate()
     .then(() => {
-      const preview = new Preview(container, api, tourOptions)
+      const preview = new Preview(container, credentials, tourOptions)
       preview.mount()
       return preview
     })

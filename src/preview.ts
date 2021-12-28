@@ -8,11 +8,12 @@ interface PreviewOptions extends TourOptions {
 }
 
 class Preview {
-  container: HTMLElement
-  buttonText: string
-  apiCredentials: ApiCredentials
-  block: HTMLElement
   embed: Embed
+
+  private container: HTMLElement
+  private buttonText: string
+  private apiCredentials: ApiCredentials
+  private block: HTMLElement
 
   constructor(container: HTMLElement, apiCredentials: ApiCredentials, options?: PreviewOptions) {
     if (!container || !apiCredentials) {
@@ -63,7 +64,7 @@ class Preview {
   }
 
   /**
-   * Embeds the virtual tour via iframe.
+   * Embeds the virtual tour
    *
    * @return {*}  {Embed}
    * @memberof Preview
