@@ -1,10 +1,16 @@
 const css = `
 .ic-preview {
-  --ic-preview__button-color-back: hsl(0deg 0% 0% / 50%);
-  --ic-preview__button-color-front: hsl(0deg 0% 100% / 100%);
-  --ic-preview__button-width: 10em;
-  --ic-preview__button-height: 10em;
-  --ic-preview__button-border-radius: 50%;
+  --ic-preview__button-width: 8em;
+  --ic-preview__button-height: 4.5em;
+  --ic-preview__button-border-radius: 3px;
+
+  --ic-preview__button-font-size: 1.25em;
+
+  --ic-preview__button-color-back: hsl(0deg 0% 0% / 75%);
+  --ic-preview__button-color-back--hover: hsl(0deg 0% 0% / 87.5%);
+
+  --ic-preview__button-color-front: hsl(0deg 0% 90% / 87.5%);
+  --ic-preview__button-color-front--hover: hsl(0deg 0% 95% / 100%);
 
   position: relative;
   width: 100%;
@@ -37,12 +43,14 @@ const css = `
 
   cursor: pointer;
   display: block;
+  border: 1px solid var(--ic-preview__button-color-back);
+  border-radius: var(--ic-preview__button-border-radius);
+
+  font-size: var(--ic-preview__button-font-size);
 
   color: var(--ic-preview__button-color-front);
   background-color: var(--ic-preview__button-color-back);
-  box-shadow: 0 0 1.5em 0 var(--ic-preview__button-color-back);
-  border: 2px solid var(--ic-preview__button-color-back);
-  border-radius: var(--ic-preview__button-border-radius);
+  box-shadow: 0 0 0.5em 0 var(--ic-preview__button-color-back);
 
   height: var(--ic-preview__button-height);
   width: var(--ic-preview__button-width);
@@ -52,8 +60,10 @@ const css = `
 
 .ic-preview:focus .ic-preview__button,
 .ic-preview:hover .ic-preview__button {
-  box-shadow: 0 0 1.5em 0 var(--ic-preview__button-color-front);
-  border-color: var(--ic-preview__button-color-front);
+  background-color: var(--ic-preview__button-color-back--hover);
+  box-shadow: 0 0 0.5em 0 var(--ic-preview__button-color-back--hover);
+  border-color: var(--ic-preview__button-color-back--hover);
+  color: var(--ic-preview__button-color-front--hover);
 }
 
 .ic-embed__iframe {

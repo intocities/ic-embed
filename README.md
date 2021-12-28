@@ -165,7 +165,10 @@ When developing, `yarn test --watch` watches for changes and runs the tests auto
 - [x] Preview+Embed: support setting of start scene and initial view direction
 - [x] Embed: make communication (sendmessage) optional (default: disabled)
 - [x] Embed: hide event-binding logic
-- [ ] Preview: add button hover styles
+- [x] Preview: add button hover styles
+
+Move these to github issues and merge the big PR:
+
 - [ ] chore: setup CI/CD for linter and test runs
 - [ ] host minified script with stable url on intocities.com to allow inclusion via `<script>`; change examples in README
 - [ ] add usage information to customer info sheet
