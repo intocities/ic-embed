@@ -1,9 +1,17 @@
-import ApiCredentials from './api_credentials'
+import { ApiCredentials } from './api_credentials'
 import { addStyles } from './styles'
+import { urlWithTourOptions } from './utils'
 
 interface Options {
   iframe: HTMLIFrameElement
   iframeOrigin: string
+}
+
+interface TourOptions {
+  scene: string
+  ath?: number
+  atv?: number
+  z?: number
 }
 
 interface Message {
@@ -16,11 +24,14 @@ interface ChangeSceneMessage extends Message {
   atv?: number
 }
 
+const EMBED_IFRAME_CLASS_NAME = 'ic-embed__iframe'
+
 class Embed {
   options: Options
   apiCredentials: ApiCredentials
+  tourOptions: TourOptions
 
-  constructor(iframe: HTMLIFrameElement, apiCredentials: ApiCredentials) {
+  constructor(iframe: HTMLIFrameElement, apiCredentials: ApiCredentials, tourOptions?: TourOptions) {
     if (!iframe || !iframe?.contentWindow?.postMessage) {
       throw new TypeError('First parameter must be a HTMLIFrameElement!')
     }
@@ -38,6 +49,10 @@ class Embed {
 
     this.options = options
 
+    if (tourOptions) {
+      this.tourOptions = tourOptions
+    }
+
     addStyles()
 
     window.addEventListener(
@@ -49,21 +64,22 @@ class Embed {
     )
   }
 
-  static initInContainer(container: HTMLElement, apiCredentials: ApiCredentials): Embed {
+  static initInContainer(container: HTMLElement, apiCredentials: ApiCredentials, tourOptions?: TourOptions): Embed {
     const iframe = document.createElement('iframe')
     iframe.id = `ic-tour-${apiCredentials.id}`
     iframe.allowFullscreen = true
     iframe.allow = 'fullscreen'
+    iframe.className = EMBED_IFRAME_CLASS_NAME
 
     container.innerHTML = ''
     container.appendChild(iframe)
 
-    return new Embed(iframe, apiCredentials)
+    return new Embed(iframe, apiCredentials, tourOptions)
   }
 
   mount(): HTMLIFrameElement {
-    this.options.iframe.src = this.apiCredentials.iframeUrl
-    this.options.iframe.className = 'ic-embed__iframe'
+    this.options.iframe.className = EMBED_IFRAME_CLASS_NAME
+    this.options.iframe.src = urlWithTourOptions(this.apiCredentials.iframeUrl, this.tourOptions)
     return this.options.iframe
   }
 
@@ -145,4 +161,4 @@ class Embed {
   }
 }
 
-export = Embed
+export { Embed, TourOptions }

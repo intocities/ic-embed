@@ -1,60 +1,52 @@
 /*!
  * ic-embed | https://github.com/intocities/ic-embed
  * Made by Into Cities | https://intocities.com
- * Released under the MIT License.
  */
 
 // @ts-check
 
-import ApiCredentials = require('./api_credentials')
-import Embed = require('./embed')
-import Preview = require('./preview')
+import { ApiCredentials, ApiParameters } from './api_credentials'
+import { Embed, TourOptions } from './embed'
+import { Preview, PreviewOptions } from './preview'
 
-interface EmbedParameters {
-  id: number
-  key: string
-  baseUrl: string
-}
-
-export function apiCredentials(id: number, key: string, baseUrl = 'https://intocities.com'): ApiCredentials {
+export function apiCredentials(id: number, key: string, baseUrl: string): ApiCredentials {
   return new ApiCredentials(id, key, baseUrl)
 }
 
 export function embed(
   iframe: HTMLIFrameElement,
-  { id, key, baseUrl = 'https://intocities.com' }: EmbedParameters
+  { id, key, baseUrl = 'https://intocities.com' }: ApiParameters,
+  tourOptions?: TourOptions
 ): Promise<Embed> {
   const api = apiCredentials(id, key, baseUrl)
 
-  return api.validate().then((valid) => {
-    if (valid) {
-      const embed = new Embed(iframe, api)
+  return api
+    .validate()
+    .then(() => {
+      const embed = new Embed(iframe, api, tourOptions)
       embed.mount()
       return embed
-    }
-    throw new Error('invalid credentials')
-  })
-}
-
-interface PreviewParameters {
-  id: number
-  key: string
-  baseUrl: string
-  buttonText: string
+    })
+    .catch((error) => {
+      throw error
+    })
 }
 
 export function preview(
   container: HTMLElement,
-  { id, key, baseUrl = 'https://intocities.com', buttonText = 'Start Virtual Tour' }: PreviewParameters
+  { id, key, baseUrl = 'https://intocities.com' }: ApiParameters,
+  tourOptions?: PreviewOptions
 ): Promise<Preview> {
   const api = apiCredentials(id, key, baseUrl)
 
-  return api.validate().then((valid) => {
-    if (valid) {
-      const preview = new Preview(container, api, buttonText)
+  return api
+    .validate()
+    .then(() => {
+      const preview = new Preview(container, api, tourOptions)
       preview.mount()
       return preview
-    }
-    throw new Error('invalid credentials')
-  })
+    })
+    .catch((error) => {
+      throw error
+    })
 }

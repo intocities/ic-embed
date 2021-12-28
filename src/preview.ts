@@ -1,7 +1,11 @@
-import ApiCredentials from './api_credentials'
-import Embed from './embed'
+import { ApiCredentials, ApiParameters } from './api_credentials'
+import { Embed, TourOptions } from './embed'
 import { addStyles } from './styles'
 import { batchAddLinksToHead } from './utils'
+
+interface PreviewOptions extends TourOptions {
+  buttonText: string
+}
 
 class Preview {
   container: HTMLElement
@@ -10,19 +14,19 @@ class Preview {
   block: HTMLElement
   embed: Embed
 
-  constructor(container: HTMLElement, apiCredentials: ApiCredentials, buttonText: string) {
+  constructor(container: HTMLElement, apiCredentials: ApiCredentials, options?: PreviewOptions) {
     if (!container || !apiCredentials) {
       throw new TypeError('Parameters must be a HTMLElement and ApiCredentials!')
     }
 
     this.container = container
     this.apiCredentials = apiCredentials
-    this.buttonText = buttonText
+    this.buttonText = options?.buttonText || 'Starte Rundgang'
 
     this.preload()
 
     this.container.addEventListener('click', () => {
-      this.mountEmbed()
+      this.mountEmbed(options)
     })
   }
 
@@ -64,12 +68,12 @@ class Preview {
    * @return {*}  {Embed}
    * @memberof Preview
    */
-  mountEmbed(): Embed {
+  mountEmbed(tourOptions?: TourOptions): Embed {
     if (this.embed) {
       return this.embed
     }
 
-    this.embed = Embed.initInContainer(this.block, this.apiCredentials)
+    this.embed = Embed.initInContainer(this.block, this.apiCredentials, tourOptions)
     this.embed.mount()
     return this.embed
   }
@@ -87,4 +91,4 @@ class Preview {
   }
 }
 
-export = Preview
+export { Preview, PreviewOptions }

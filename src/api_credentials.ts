@@ -49,6 +49,12 @@ interface ApiResponse {
   origin?: string
 }
 
+interface ApiParameters {
+  id: number
+  key: string
+  baseUrl: string
+}
+
 class ApiCredentials {
   baseUrl: string
   key: string
@@ -126,4 +132,4 @@ class ApiCredentials {
   }
 }
 
-export = ApiCredentials
+export { ApiCredentials, ApiParameters }

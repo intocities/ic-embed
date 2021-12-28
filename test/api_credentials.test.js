@@ -1,4 +1,4 @@
-const ApiCredentials = require('../lib/api_credentials')
+const { ApiCredentials } = require('../lib/api_credentials')
 
 beforeAll(async () => {
   // @ts-ignore

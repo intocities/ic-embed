@@ -141,22 +141,21 @@ When developing, `yarn test --watch` watches for changes and runs the tests auto
 - [x] ApiCredentials: verify key + id upon creation
 - [x] index.embed: change signature to use ApiCredentials
 - [x] add styles via class names (append style element to head)
-
 - [x] docs: update README
-- [ ] docs: add a demo GIF for preview
-- [ ] docs: create demo pages
+- [x] docs: create demo/example pages
 - [x] docs: adjust embedding instructions
 - [x] docs: describe how to adjust button colors
 
 ### P2
 
-- [ ] chore: setup CI/CD for linter and test runs
-- [ ] Preview+Embed: support setting of start scene and initial view direction
+- [x] Preview+Embed: support setting of start scene and initial view direction
 - [ ] Embed: make communication (sendmessage) optional (default: disabled)
 - [ ] Embed: hide event-binding logic, provide ability to setup callback function (Embed#dispatchEvent)
 - [ ] Preview: add button hover styles
+- [ ] chore: setup CI/CD for linter and test runs
 - [ ] host minified script with stable url on intocities.com to allow inclusion via `<script>`; change examples in README
 - [ ] add usage information to customer info sheet
+- [ ] docs: add a demo GIF for preview
 
 ### P3
 

@@ -62,9 +62,6 @@ const css = `
   border: none;
   overflow: hidden;
 }`
-  .replace(/\n/g, '')
-  .replace(/\s\s+/g, ' ')
-  .trim()
 
 const STYLE_ELEMENT_ID = 'ic-embed-styles'
 

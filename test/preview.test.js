@@ -1,5 +1,5 @@
-const Preview = require('../lib/preview')
-const ApiCredentials = require('../lib/api_credentials')
+const { Preview } = require('../lib/preview')
+const { ApiCredentials } = require('../lib/api_credentials')
 
 let credentials
 

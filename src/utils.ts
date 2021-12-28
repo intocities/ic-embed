@@ -1,3 +1,5 @@
+import { Embed, TourOptions } from './embed'
+
 interface Link {
   href: string
   rel: string
@@ -25,4 +27,20 @@ export function addLinkToHead(attributes: Link): void {
   }
 
   document.head.appendChild(link)
+}
+
+const TOUR_OPTION_PERMITTED_KEYS = new Set(['scene', 'ath', 'atv', 'z'])
+
+export function urlWithTourOptions(baseUrl: string, tourOptions?: TourOptions): string {
+  if (!tourOptions) {
+    return baseUrl
+  }
+
+  const options = Object.entries(tourOptions)
+    .filter(([key, value]) => TOUR_OPTION_PERMITTED_KEYS.has(key))
+    .map(([key, value]) => {
+      return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+    })
+
+  return `${baseUrl}#${options.join('&')}`
 }

@@ -1,5 +1,5 @@
-const Embed = require('../lib/embed')
-const ApiCredentials = require('../lib/api_credentials')
+const { Embed } = require('../lib/embed')
+const { ApiCredentials } = require('../lib/api_credentials')
 
 let credentials
 
