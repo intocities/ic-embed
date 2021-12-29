@@ -8,6 +8,7 @@
 import { ApiCredentials, ApiParameters } from './api_credentials'
 import { Embed, TourOptions } from './embed'
 import { Preview, PreviewOptions } from './preview'
+import { TourProxy } from './tour_proxy'
 
 export function embed(
   iframe: HTMLIFrameElement,
@@ -45,4 +46,8 @@ export function preview(
     .catch((error) => {
       throw error
     })
+}
+
+export function tour(iframe: HTMLIFrameElement): TourProxy {
+  return new TourProxy(iframe)
 }

@@ -18,10 +18,14 @@ const AVAILABLE_EVENTS = new Set(['ic.sceneChanged', 'ic.ready'])
  * @class TourProxy
  */
 class TourProxy {
-  private embed: Embed
+  private iframe: HTMLIFrameElement
 
-  constructor(embed: Embed) {
-    this.embed = embed
+  constructor(iframe: HTMLIFrameElement) {
+    if (!iframe || !iframe?.contentWindow?.postMessage) {
+      throw new TypeError('First parameter must be a HTMLIFrameElement!')
+    }
+
+    this.iframe = iframe
 
     window.addEventListener(
       'message',
@@ -65,7 +69,7 @@ class TourProxy {
   }
 
   params(): object {
-    const parts = this.embed.iframe.src.split('#')
+    const parts = this.iframe.src.split('#')
     if (parts.length === 1) {
       return {}
     }
@@ -87,8 +91,12 @@ class TourProxy {
     return returnObj
   }
 
+  get iframeOrigin(): string {
+    return this.iframe.src.split('/').slice(0, 3).join('/')
+  }
+
   private assertAllowedOrigin(origin: string): void {
-    if (origin !== this.embed.iframeOrigin) {
+    if (origin !== this.iframeOrigin) {
       throw new Error('Discarding incoming message; untrusted event origin.')
     }
   }
@@ -104,7 +112,7 @@ class TourProxy {
   private dispatchEvent(name: string, data: object): void {
     console.debug('dispatchEvent', name, data)
 
-    this.embed.iframe.dispatchEvent(new window.CustomEvent(name, { detail: data }))
+    this.iframe.dispatchEvent(new window.CustomEvent(name, { detail: data }))
   }
 
   /**
@@ -141,9 +149,9 @@ class TourProxy {
    * @memberof TourProxy
    */
   private postMessage(data: Message): void {
-    console.debug('postMessage', data, this.embed.iframeOrigin)
+    console.debug('postMessage', data, this.iframeOrigin)
 
-    this.embed.iframe.contentWindow!.postMessage(data, this.embed.iframeOrigin)
+    this.iframe.contentWindow!.postMessage(data, this.iframeOrigin)
   }
 }
 
