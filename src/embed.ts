@@ -73,17 +73,9 @@ class Embed {
     return `${baseUrl}#${options.join('&')}`
   }
 
-  get iframe(): HTMLIFrameElement {
-    return this.options.iframe
-  }
-
-  get iframeOrigin(): string {
-    return this.options.iframe.src.split('/').slice(0, 3).join('/')
-  }
-
   get tour(): TourProxy {
     if (!this.tourProxy) {
-      this.tourProxy = new TourProxy(this)
+      this.tourProxy = new TourProxy(this.options.iframe)
     }
 
     return this.tourProxy

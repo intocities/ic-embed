@@ -1,31 +1,13 @@
-const { Embed } = require('../lib/embed')
 const { TourProxy } = require('../lib/tour_proxy')
-const { ApiCredentials } = require('../lib/api_credentials')
-
-let credentials
-
-beforeAll(async () => {
-  credentials = new ApiCredentials(42, 'something', 'https://localhost')
-
-  // @ts-ignore
-  fetch.mockResponseOnce(
-    JSON.stringify({
-      poi: { id: 42, tour_present: true, thumbnail_urls: { landscape: 'dummy.png' } },
-      origin: window.location.origin
-    })
-  )
-
-  await credentials.validate()
-})
 
 beforeEach(() => {
   document.head.innerHTML = ''
-  document.body.innerHTML = '<div></div>'
+  document.body.innerHTML = '<div><iframe /></div>'
 })
 
 describe('#changeScene', () => {
   it('works with valid parameters', () => {
-    const tour = Embed.initInContainer(document.querySelector('div'), credentials).tour
+    const tour = new TourProxy(document.querySelector('iframe'))
 
     tour.postMessage = jest.fn()
 
@@ -43,7 +25,7 @@ describe('#changeScene', () => {
   })
 
   it('throws specific errors with messages', () => {
-    const tour = Embed.initInContainer(document.querySelector('div'), credentials).tour
+    const tour = new TourProxy(document.querySelector('iframe'))
 
     tour.postMessage = jest.fn()
 
@@ -58,7 +40,7 @@ describe('#changeScene', () => {
 
 describe('#params', () => {
   it('returns an object', () => {
-    const tour = Embed.initInContainer(document.querySelector('div'), credentials).tour
+    const tour = new TourProxy(document.querySelector('iframe'))
     expect(tour.params()).toEqual({})
   })
 })

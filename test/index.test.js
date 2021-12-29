@@ -1,9 +1,11 @@
 const IC = require('../lib/index')
+const { TourProxy } = require('../lib/tour_proxy')
 
 describe('IC', () => {
   it('has properties', () => {
     expect(IC).toHaveProperty('embed')
     expect(IC).toHaveProperty('preview')
+    expect(IC).toHaveProperty('tour')
   })
 })
 
@@ -44,5 +46,16 @@ describe('IC.preview', () => {
     )
 
     return expect(IC.preview(document.querySelector('div'), credentials)).resolves.toHaveProperty('mount')
+  })
+})
+
+describe('IC.tour', () => {
+  beforeEach(() => {
+    document.head.innerHTML = ''
+    document.body.innerHTML = '<div><iframe /></div>'
+  })
+
+  it('returns a TourProxy instance', () => {
+    expect(IC.tour(document.querySelector('iframe'))).toBeInstanceOf(TourProxy)
   })
 })
