@@ -7,7 +7,7 @@ The preview function displays only a teaser with a 'Start Tour' button. When the
 
 You can also embed it directly so that the tour starts right away. See chapter [Embed](#embed).
 
-This script also enables you to programmatically interact with the embedded tour, for example to change the scene. It also notifies you when the user has navigated within the tour and triggered a scene change. See chapter [Advanced Usage](#advanced-usage) in Embed.
+This script also enables you to programmatically interact with the embedded tour, for example to change the scene. It also notifies you when the user has navigated within the tour and triggered a scene change. See information about [subscribing to events](#subscribing-to-events) and [using the Tour API](#using-the-tour-api) below.
 
 ## Preview
 
@@ -28,7 +28,9 @@ See example file: [`examples/preview.html`](examples/preview.html).
 
 ### Changing the appearance
 
-The Preview function utilizes some CSS variables. Via this variables, you can change the appearance by overruling them. See `src/styles.ts` or investigate in the web developer console on your site which uses the _ic-embed Preview_.
+The Preview function utilizes some CSS variables. With the help of these variables, you can change the appearance: add a `.ic-preview` selector to your CSS and overrule them.
+
+See `src/styles.ts` or investigate in the web developer console on your site which uses the _ic-embed Preview_.
 
 ## Embed
 
@@ -53,11 +55,11 @@ See example file: [`examples/embed.html`](examples/embed.html).
 
 After embedding, the `iframe` element will receive events when the Virtual Tour changed.
 
-#### List of available events
+### List of available events
 
 - `sceneChanged`
 
-#### Usage example
+### Usage example
 
 ```javascript
 const iframe = document.querySelector('iframe')
@@ -71,9 +73,9 @@ iframe.addEventListener('sceneChanged', (event) => {
 
 ## Using the Tour API
 
-For the tour API to function, the iframe must have been loaded (e.g. the start button in Preview has been clicked or the virtual has been embedded via `IC.embed`).
+For the tour API to work, the iframe must have been loaded (e.g. the start button in Preview has been clicked or the virtual has been embedded via `IC.embed`).
 
-If the tour has been embedded directly, you can get access to the api via `embed.tour`.
+If the tour has been embedded directly, you can get access to the api via the embed object with `embed.tour`.
 
 If using the preview function and have just the reference to `preview`, access the tour API via: `preview.embed.tour`
 
@@ -105,14 +107,6 @@ When you want the Virtual Tour to change, you can use the API to do so.
 [Your Website] ------------> [Virtual Tour]
 ```
 
-You can also synchronously request information from the Virtual Tour.
-
-```
-                    get
-[Your Website] ------------> [Virtual Tour]
-[Your Website] <------------ [Virtual Tour]
-```
-
 #### Data flow of events
 
 Events communicate **from** the Virtual Tour **to** your website.
@@ -133,7 +127,7 @@ In conjunction with [Turbolinks](https://github.com/turbolinks/turbolinks) you c
 
 This script relies on [Window.postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) which is [widely supported](https://caniuse.com/#feat=x-doc-messaging).
 
-We do not recommend to support the IE11.
+We do not support the IE11.
 
 ## Development
 
@@ -145,38 +139,3 @@ The generated JS is tested with _Jest_. The files are formatted with _prettier_.
 3. See other `"scripts"` to run in `package.json`.
 
 When developing, `yarn test --watch` watches for changes and runs the tests automatically.
-
-## TODO
-
-### P1
-
-- [x] specs: add for apicredentials
-- [x] specs: keep tests for JS public api (embed, preview, ...)
-- [x] ApiCredentials: verify key + id upon creation
-- [x] index.embed: change signature to use ApiCredentials
-- [x] add styles via class names (append style element to head)
-- [x] docs: update README
-- [x] docs: create demo/example pages
-- [x] docs: adjust embedding instructions
-- [x] docs: describe how to adjust button colors
-
-### P2
-
-- [x] Preview+Embed: support setting of start scene and initial view direction
-- [x] Embed: make communication (sendmessage) optional (default: disabled)
-- [x] Embed: hide event-binding logic
-- [x] Preview: add button hover styles
-
-Move these to github issues and merge the big PR:
-
-- [ ] chore: setup CI/CD for linter and test runs
-- [ ] host minified script with stable url on intocities.com to allow inclusion via `<script>`; change examples in README
-- [ ] add usage information to customer info sheet
-- [ ] docs: add a demo GIF for preview
-
-### P3
-
-- [ ] Preview: when container comes into the view, add preloads for tour
-- [ ] Embed: are more preloads needed?
-- [ ] ApiCredentials: rename? this contains URLs already ... should hold tour picture url etc, too, after verify
-- [ ] Tour: provide ability to setup callback functions (instead of dispatching events to the iframe)

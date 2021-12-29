@@ -1,5 +1,6 @@
 const { Preview } = require('../lib/preview')
 const { ApiCredentials } = require('../lib/api_credentials')
+const { STYLE_ELEMENT_ID } = require('../lib/styles')
 
 let credentials
 
@@ -35,20 +36,20 @@ describe('the preview inside the DOM', () => {
   })
 
   it('creates the elements', () => {
-    expect(document.head.querySelector('style')).toBeTruthy()
-    expect(document.head.querySelector('link[rel=preconnect]')).toBeTruthy()
-    expect(document.head.querySelector('link[rel=preload]')).toBeTruthy()
-    expect(document.head.querySelector('link[rel=dns-prefetch]')).toBeTruthy()
+    expect(document.head.querySelector(`style#${STYLE_ELEMENT_ID}`)).toBeInstanceOf(HTMLStyleElement)
+    expect(document.head.querySelector('link[rel=preconnect]')).toBeInstanceOf(HTMLLinkElement)
+    expect(document.head.querySelector('link[rel=preload]')).toBeInstanceOf(HTMLLinkElement)
+    expect(document.head.querySelector('link[rel=dns-prefetch]')).toBeInstanceOf(HTMLLinkElement)
 
-    expect(document.body.querySelector('.ic-preview')).toBeTruthy()
-    expect(document.body.querySelector('.ic-preview .ic-preview__wrapper')).toBeTruthy()
-    expect(document.body.querySelector('.ic-preview__wrapper .ic-preview__image')).toBeTruthy()
-    expect(document.body.querySelector('.ic-preview__wrapper .ic-preview__button')).toBeTruthy()
+    expect(document.body.querySelector('.ic-preview')).toBeInstanceOf(HTMLDivElement)
+    expect(document.body.querySelector('.ic-preview .ic-preview__wrapper')).toBeInstanceOf(HTMLDivElement)
+    expect(document.body.querySelector('.ic-preview__wrapper .ic-preview__image')).toBeInstanceOf(HTMLImageElement)
+    expect(document.body.querySelector('.ic-preview__wrapper .ic-preview__button')).toBeInstanceOf(HTMLButtonElement)
   })
 
   it('embeds the iframe on click', () => {
     const button = document.querySelector('.ic-preview__button')
-    expect(button).toBeTruthy()
+    expect(button).toBeInstanceOf(HTMLButtonElement)
 
     button.dispatchEvent(
       new window.MouseEvent('click', {
@@ -58,7 +59,7 @@ describe('the preview inside the DOM', () => {
       })
     )
 
-    expect(document.querySelector('.ic-preview > iframe')).toBeTruthy()
+    expect(document.querySelector('.ic-preview > iframe')).toBeInstanceOf(HTMLIFrameElement)
   })
 })
 
@@ -70,7 +71,7 @@ describe('preview#mountEmbed()', () => {
 
     const embed = preview.mountEmbed()
 
-    expect(document.querySelector('iframe')).toBeTruthy()
+    expect(document.querySelector('iframe')).toBeInstanceOf(HTMLIFrameElement)
     expect(embed.tour).toHaveProperty('changeScene')
   })
 })

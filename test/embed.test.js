@@ -31,7 +31,9 @@ describe('Embed.initInContainer', () => {
     const embed = Embed.initInContainer(document.querySelector('div'), credentials)
     embed.mount()
 
-    const iframe = document.querySelector('iframe')
+    const iframe = embed.iframe
+    expect(iframe).toBeInstanceOf(HTMLIFrameElement)
+    expect(document.querySelector('iframe')).toEqual(iframe)
     expect(iframe.className).toBe('ic-embed__iframe')
     expect(iframe.id).toContain('ic-tour-')
     expect(iframe.src).toEqual(credentials.iframeUrl)
