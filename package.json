@@ -9,7 +9,8 @@
   "author": "Durch die Stadt <support@durchdiestadt.de>",
   "license": "UNLICENSED",
   "scripts": {
-    "build": "yarn run tsc && yarn bundle",
+    "compile": "yarn run tsc",
+    "build": "yarn compile && yarn bundle",
     "bundle": "browserify -p tinyify --standalone IC lib/index.js -o dist/ic-embed.min.js",
     "lint": "prettier --check .",
     "lintfix": "prettier --write .",
