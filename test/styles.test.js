@@ -12,5 +12,5 @@ describe('addStyles', () => {
     addStyles()
 
     expect(document.getElementById(STYLE_ELEMENT_ID)).toBeInstanceOf(HTMLStyleElement)
-  });
-});
+  })
+})
