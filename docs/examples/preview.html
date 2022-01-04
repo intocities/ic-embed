@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IC.preview example</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css" />
+    <style>
+      #preview {
+        width: 48rem;
+        height: 27rem;
+        max-width: 100%;
+        max-height: 80vh;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <h1>Home / examples / preview</h1>
+    </header>
+
+    <section class="container">
+      <p>This is the preview example. Check this site's source code to see how it works!</p>
+
+      <div id="preview"></div>
+    </section>
+
+    <footer class="container">
+      <nav>
+        <a href="../">Back to Home</a>
+      </nav>
+    </footer>
+
+    <!-- <script src="../dist/ic-embed.min.js"></script> -->
+    <!-- <script src="https://intocities.com/embed.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/gh/intocities/ic-embed@master/dist/ic-embed.min.js"></script>
+    <script>
+      IC.preview(
+        document.querySelector('#preview'),
+        {
+          id: 8856,
+          key: '2d4fc6da-b978-440a-a2a2-5546362694ad'
+        },
+        {
+          buttonText: 'Click to start Virtual Tour',
+          scene: 'dev_seed/scene_sc2',
+          ath: 60,
+          atv: 6
+        }
+      )
+        .then((preview) => {
+          console.log('Preview mounted', preview)
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    </script>
+  </body>
+</html>
