@@ -5,7 +5,7 @@
 In general, we recommend to use the _preview_ function to include the tour on your website.
 The preview function displays only a teaser with a 'Start Tour' button. When the user clicks or taps it, the fully interactive virtual tour loads. The preview function causes only a small network load, which is usually desirable. See chapter [Preview](#preview).
 
-You can also embed it directly so that the tour starts right away. See chapter [Embed](#embed).
+You can also embed it directly so that the virtual tour starts right away. See chapter [Embed](#embed).
 
 This script also enables you to programmatically interact with the embedded tour, for example to change the scene. It also notifies you when the user has navigated within the tour and triggered a scene change. See information about [subscribing to events](#subscribing-to-events) and [using the Tour API](#using-the-tour-api) below.
 
@@ -24,7 +24,7 @@ This script also enables you to programmatically interact with the embedded tour
    })
    ```
 
-See example file: [`examples/preview.html`](examples/preview.html).
+See example file: [`docs/examples/preview.html`](docs/examples/preview.html).
 
 ### Changing the appearance
 
@@ -49,7 +49,7 @@ Similar to _Preview_ above, but call `IC.embed`:
    })
    ```
 
-See example file: [`examples/embed.html`](examples/embed.html).
+See example file: [`docs/examples/embed.html`](docs/examples/embed.html).
 
 ## Subscribing to events
 

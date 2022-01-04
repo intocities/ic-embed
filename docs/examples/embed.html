@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IC.embed example</title>
+    <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@latest/css/pico.min.css" />
+    <style>
+      .embed {
+        width: 48rem;
+        height: 27rem;
+        max-width: 100%;
+        max-height: 80vh;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="container">
+      <h1>Home / examples / embed</h1>
+    </header>
+
+    <section class="container">
+      <p>This is the embed example. Check this site's source code to see how it works!</p>
+
+      <div class="embed">
+        <iframe></iframe>
+      </div>
+    </section>
+
+    <footer class="container">
+      <nav>
+        <a href="../">Back to Home</a>
+      </nav>
+    </footer>
+
+    <!-- <script src="../dist/ic-embed.min.js"></script> -->
+    <!-- <script src="https://intocities.com/embed.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/gh/intocities/ic-embed@master/dist/ic-embed.min.js"></script>
+    <script>
+      IC.embed(
+        document.querySelector('iframe'),
+        {
+          id: 8856,
+          key: '2d4fc6da-b978-440a-a2a2-5546362694ad'
+        },
+        {
+          scene: 'dev_seed/scene_sc2',
+          ath: 60,
+          atv: 6
+        }
+      )
+        .then((embed) => {
+          console.log('Embed mounted', embed)
+
+          // To get the api: embed.tour
+        })
+        .catch((error) => {
+          console.error(error)
+        })
+    </script>
+  </body>
+</html>
