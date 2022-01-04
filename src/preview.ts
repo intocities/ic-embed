@@ -47,9 +47,14 @@ class Preview {
     wrapper.className = 'ic-preview__wrapper'
 
     const img = document.createElement('img')
-    img.className = 'ic-preview__image'
-    img.loading = 'lazy'
-    img.src = this.imageUrl
+    img.className = 'ic-preview__image--loading'
+    img.alt = ''
+
+    if (this.apiCredentials.imageUrl) {
+      img.className = 'ic-preview__image'
+      img.loading = 'lazy'
+      img.src = this.apiCredentials.imageUrl
+    }
 
     const button = document.createElement('button')
     button.className = 'ic-preview__button'
@@ -83,12 +88,11 @@ class Preview {
     batchAddLinksToHead([
       { rel: 'preconnect', href: this.apiCredentials.baseUrl },
       { rel: 'dns-prefetch', href: ApiCredentials.cdnUrl },
-      { rel: 'preload', href: this.imageUrl, as: 'image' }
+      { rel: 'prerender', href: this.apiCredentials.iframeUrl },
+      // Keeping a prefetch here for browsers which do not support prerender:
+      // https://caniuse.com/link-rel-prerender
+      { rel: 'prefetch', href: this.apiCredentials.iframeUrl }
     ])
-  }
-
-  private get imageUrl(): string {
-    return this.apiCredentials.apiResponse.poi.thumbnail_urls.landscape
   }
 }
 

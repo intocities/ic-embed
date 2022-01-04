@@ -38,7 +38,8 @@ describe('the preview inside the DOM', () => {
   it('creates the elements', () => {
     expect(document.head.querySelector(`style#${STYLE_ELEMENT_ID}`)).toBeInstanceOf(HTMLStyleElement)
     expect(document.head.querySelector('link[rel=preconnect]')).toBeInstanceOf(HTMLLinkElement)
-    expect(document.head.querySelector('link[rel=preload]')).toBeInstanceOf(HTMLLinkElement)
+    expect(document.head.querySelector('link[rel=prerender]')).toBeInstanceOf(HTMLLinkElement)
+    expect(document.head.querySelector('link[rel=prefetch]')).toBeInstanceOf(HTMLLinkElement)
     expect(document.head.querySelector('link[rel=dns-prefetch]')).toBeInstanceOf(HTMLLinkElement)
 
     expect(document.body.querySelector('.ic-preview')).toBeInstanceOf(HTMLDivElement)

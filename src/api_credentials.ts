@@ -59,7 +59,7 @@ class ApiCredentials {
   baseUrl: string
   key: string
   id: number
-  apiResponse: ApiResponse
+  apiResponse?: ApiResponse
 
   constructor(id: number, key: string, baseUrl: string) {
     if (!id || !key || !baseUrl) {
@@ -129,6 +129,10 @@ class ApiCredentials {
 
   public get iframeUrl(): string {
     return `${this.baseUrl}embed/${this.id.toString()}/${this.key}`
+  }
+
+  public get imageUrl(): string | undefined {
+    return this.apiResponse?.poi?.thumbnail_urls?.landscape
   }
 }
 
