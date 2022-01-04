@@ -1,31 +1,3 @@
-interface Overlay {
-  for_scene_id: string
-  for_scene_name: string
-  scene_id: string
-  scene_name: string
-}
-
-interface Scene {
-  id: string
-  name: string
-  lat?: number
-  lng?: number
-  kind?: string
-}
-interface Tour {
-  identifier: string
-  radar: boolean
-  radar_offset: number
-  start_scene: string
-  lookat_h?: number
-  lookat_v?: number
-  overlays: Overlay[]
-  scenes: { [index: string]: Scene[] }
-  floorplan_url: string
-  tour_xml: string
-  back_to_city_url: string
-}
-
 interface ThumbnailUrls {
   landscape: string
 }
@@ -34,12 +6,7 @@ interface Poi {
   id: number
   name: string
   city: string
-  videos_count: number
-  canonical_url: string
-  videos_url: string
   tour_present: boolean
-  tours: Tour[]
-  features: { [index: string]: string }
   thumbnail_present: boolean
   thumbnail_urls: ThumbnailUrls
 }
