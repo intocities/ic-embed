@@ -24,7 +24,7 @@ This script also enables you to programmatically interact with the embedded tour
    })
    ```
 
-See example file: [`docs/examples/preview.html`](docs/examples/preview.html).
+[See example.](https://intocities.github.io/ic-embed/examples/preview.html).
 
 ### Changing the appearance
 
@@ -49,7 +49,7 @@ Similar to _Preview_ above, but call `IC.embed`:
    })
    ```
 
-See example file: [`docs/examples/embed.html`](docs/examples/embed.html).
+[See example.](https://intocities.github.io/ic-embed/examples/embed.html).
 
 ## Subscribing to events
 
