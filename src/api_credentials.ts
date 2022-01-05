@@ -1,5 +1,5 @@
 interface ThumbnailUrls {
-  landscape: string
+  landscape: string | null
 }
 
 interface Poi {
@@ -7,7 +7,6 @@ interface Poi {
   name: string
   city: string
   tour_present: boolean
-  thumbnail_present: boolean
   thumbnail_urls: ThumbnailUrls
 }
 
@@ -98,7 +97,7 @@ class ApiCredentials {
     return `${this.baseUrl}embed/${this.id.toString()}/${this.key}`
   }
 
-  public get imageUrl(): string | undefined {
+  public get imageUrl(): string | null | undefined {
     return this.apiResponse?.poi?.thumbnail_urls?.landscape
   }
 }
