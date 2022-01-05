@@ -27,6 +27,11 @@
       <div class="embed">
         <iframe></iframe>
       </div>
+
+      <div class="grid">
+        <button class="change-scene contrast outline" data-scene="c10000/scene_sc1">change to sc1</button>
+        <button class="change-scene contrast outline" data-scene="c10000/scene_sc2">change to sc2</button>
+      </div>
     </section>
 
     <footer class="container">
@@ -46,15 +51,23 @@
           key: '2d4fc6da-b978-440a-a2a2-5546362694ad'
         },
         {
-          scene: 'dev_seed/scene_sc2',
-          ath: 60,
-          atv: 6
+          scene: 'c10000/scene_sc3',
+          ath: -65,
+          atv: 7
         }
       )
         .then((embed) => {
           console.log('Embed mounted', embed)
 
-          // To get the api: embed.tour
+          const api = embed.tour
+
+          document.addEventListener('click', ({ target }) => {
+            if (!target.classList.contains('change-scene')) {
+              return
+            }
+
+            api.changeScene(target.dataset.scene)
+          })
         })
         .catch((error) => {
           console.error(error)
