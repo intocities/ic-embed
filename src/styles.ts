@@ -3,11 +3,13 @@ const css = `
   --ic-preview__button-width: 8em;
   --ic-preview__button-height: 4.5em;
   --ic-preview__button-border-radius: 3px;
-  --ic-preview__button-font-size: 1.25em;
-  --ic-preview__button-color-back: hsl(0deg 0% 0% / 75%);
-  --ic-preview__button-color-back--hover: hsl(0deg 0% 0% / 87.5%);
-  --ic-preview__button-color-front: hsl(0deg 0% 90% / 87.5%);
-  --ic-preview__button-color-front--hover: hsl(0deg 0% 95% / 100%);
+  --ic-preview__button-font-size: 2em;
+  --ic-preview__button-color-back: hsl(0deg 0% 0% / 25%);
+  --ic-preview__button-color-back--hover: hsl(0deg 0% 0% / 2.5%);
+
+  --ic-preview__button-color-front: hsl(0deg 0% 100% / 97.5%);
+  --ic-preview__button-color-front--hover: hsl(0deg 0% 100% / 100%);
+
   position: relative;
   width: 100%;
   height: 100%;
@@ -28,33 +30,42 @@ const css = `
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0.975;
+  transition: opacity 0.3s ease;
 }
 
-.ic-preview__button {
+.ic-preview:focus .ic-preview__image,
+.ic-preview:hover .ic-preview__image {
+  opacity: 1;
+}
+
+ic-button {
   position: absolute;
   top: 50%;
   left: 50%;
   z-index: 2;
   display: block;
-  width: var(--ic-preview__button-width);
-  height: var(--ic-preview__button-height);
+  max-width: var(--ic-preview__button-width);
+  max-height: var(--ic-preview__button-height);
   font-size: var(--ic-preview__button-font-size);
   color: var(--ic-preview__button-color-front);
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0 0 3px #000;
   cursor: pointer;
-  background-color: var(--ic-preview__button-color-back);
-  border: 1px solid var(--ic-preview__button-color-back);
-  border-radius: var(--ic-preview__button-border-radius);
-  box-shadow: 0 0 0.5em 0 var(--ic-preview__button-color-back);
+  background-color: transparent;
+  border: 0;
   transition: all 0.3s ease;
   transform: translate(-50%, -50%);
+  backdrop-filter: blur(0.25px);
 }
 
-.ic-preview:focus .ic-preview__button,
-.ic-preview:hover .ic-preview__button {
+.ic-preview:focus ic-button,
+.ic-preview:hover ic-button,
+ic-button:focus,
+ic-button:hover {
   color: var(--ic-preview__button-color-front--hover);
-  background-color: var(--ic-preview__button-color-back--hover);
-  border-color: var(--ic-preview__button-color-back--hover);
-  box-shadow: 0 0 0.5em 0 var(--ic-preview__button-color-back--hover);
+  text-shadow: 0 0 4px #000000f0;
 }
 
 .ic-embed__iframe {

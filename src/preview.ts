@@ -56,8 +56,7 @@ class Preview {
       img.src = this.apiCredentials.imageUrl
     }
 
-    const button = document.createElement('button')
-    button.className = 'ic-preview__button'
+    const button = document.createElement('ic-button', { is: 'button' })
     button.innerText = this.buttonText
 
     wrapper.appendChild(button)

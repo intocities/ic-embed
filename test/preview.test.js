@@ -45,12 +45,13 @@ describe('the preview inside the DOM', () => {
     expect(document.body.querySelector('.ic-preview')).toBeInstanceOf(HTMLDivElement)
     expect(document.body.querySelector('.ic-preview .ic-preview__wrapper')).toBeInstanceOf(HTMLDivElement)
     expect(document.body.querySelector('.ic-preview__wrapper .ic-preview__image')).toBeInstanceOf(HTMLImageElement)
-    expect(document.body.querySelector('.ic-preview__wrapper .ic-preview__button')).toBeInstanceOf(HTMLButtonElement)
+    expect(document.body.querySelector('.ic-preview__wrapper ic-button')).toBeDefined()
   })
 
   it('embeds the iframe on click', () => {
-    const button = document.querySelector('.ic-preview__button')
-    expect(button).toBeInstanceOf(HTMLButtonElement)
+    const button = document.querySelector('ic-button')
+    expect(button).toBeDefined()
+    expect(button).toHaveProperty('dispatchEvent')
 
     button.dispatchEvent(
       new window.MouseEvent('click', {
