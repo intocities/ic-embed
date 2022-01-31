@@ -1,7 +1,7 @@
 import { ApiCredentials, ApiParameters } from './api_credentials'
 import { Embed, TourOptions } from './embed'
 import { addStyles } from './styles'
-import { batchAddLinksToHead } from './utils'
+import { batchAddLinksToHead, encodedPanoIcon } from './utils'
 
 interface PreviewOptions extends TourOptions {
   buttonText: string
@@ -56,11 +56,19 @@ class Preview {
       img.src = this.apiCredentials.imageUrl
     }
 
+    const panoIcon = document.createElement('img')
+    panoIcon.className = 'ic-preview__image--pano'
+    panoIcon.alt = '360° icon'
+    panoIcon.setAttribute('role', 'presentation')
+    panoIcon.src = encodedPanoIcon()
+
     const button = document.createElement('ic-button', { is: 'button' })
     button.innerText = this.buttonText
 
+    wrapper.appendChild(panoIcon)
     wrapper.appendChild(button)
-    wrapper.appendChild(img)
+
+    this.block.appendChild(img)
     this.block.appendChild(wrapper)
     this.container.appendChild(this.block)
 

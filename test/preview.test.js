@@ -44,8 +44,11 @@ describe('the preview inside the DOM', () => {
 
     expect(document.body.querySelector('.ic-preview')).toBeInstanceOf(HTMLDivElement)
     expect(document.body.querySelector('.ic-preview .ic-preview__wrapper')).toBeInstanceOf(HTMLDivElement)
-    expect(document.body.querySelector('.ic-preview__wrapper .ic-preview__image')).toBeInstanceOf(HTMLImageElement)
+    expect(document.body.querySelector('.ic-preview .ic-preview__image')).toBeInstanceOf(HTMLImageElement)
     expect(document.body.querySelector('.ic-preview__wrapper ic-button')).toBeDefined()
+    expect(document.body.querySelector('.ic-preview__wrapper .ic-preview__image--pano')).toBeInstanceOf(
+      HTMLImageElement
+    )
   })
 
   it('embeds the iframe on click', () => {
