@@ -22,15 +22,8 @@ const css = `
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.975;
   transition: opacity 0.3s ease;
 }
-
-.ic-preview:focus .ic-preview__image,
-.ic-preview:hover .ic-preview__image {
-  opacity: 1;
-}
-
 
 .ic-preview__wrapper {
   position: absolute;

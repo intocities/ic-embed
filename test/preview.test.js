@@ -80,3 +80,32 @@ describe('preview#mountEmbed()', () => {
     expect(embed.tour).toHaveProperty('changeScene')
   })
 })
+
+describe('preview#mount', () => {
+  test('it respects options.buttonText', () => {
+    const options = {
+      showIcon: true,
+      buttonText: 'foobar'
+    }
+
+    const preview = new Preview(document.querySelector('div'), credentials, options)
+    expect(preview).toHaveProperty('mount')
+    preview.mount()
+
+    // @ts-ignore
+    expect(document.querySelector('.ic-preview__wrapper ic-button').innerText).toEqual('foobar')
+    expect(document.querySelector('.ic-preview__wrapper .ic-preview__image--pano')).toBeDefined()
+  })
+
+  test('it respects options.showIcon', () => {
+    const options = {
+      showIcon: false
+    }
+
+    const preview = new Preview(document.querySelector('div'), credentials, options)
+    expect(preview).toHaveProperty('mount')
+    preview.mount()
+
+    expect(document.querySelector('.ic-preview__wrapper .ic-preview__image--pano')).toBeNull()
+  })
+})
