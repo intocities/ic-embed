@@ -1,19 +1,25 @@
-import { ApiCredentials, ApiParameters } from './api_credentials'
+import { ApiCredentials } from './api_credentials'
 import { Embed, TourOptions } from './embed'
 import { addStyles } from './styles'
-import { batchAddLinksToHead } from './utils'
+import { batchAddLinksToHead, encodedPanoIcon } from './utils'
 
 interface PreviewOptions extends TourOptions {
   buttonText: string
+  showIcon: boolean
 }
 
 class Preview {
   embed: Embed
 
   private container: HTMLElement
-  private buttonText: string
   private apiCredentials: ApiCredentials
   private block: HTMLElement
+  private options: PreviewOptions
+  private DEFAULT_OPTIONS: PreviewOptions = {
+    buttonText: 'Starte Rundgang',
+    showIcon: true,
+    scene: ''
+  }
 
   constructor(container: HTMLElement, apiCredentials: ApiCredentials, options?: PreviewOptions) {
     if (!container || !apiCredentials) {
@@ -22,7 +28,7 @@ class Preview {
 
     this.container = container
     this.apiCredentials = apiCredentials
-    this.buttonText = options?.buttonText || 'Starte Rundgang'
+    this.options = Object.assign({}, this.DEFAULT_OPTIONS, options)
 
     this.preload()
 
@@ -56,11 +62,22 @@ class Preview {
       img.src = this.apiCredentials.imageUrl
     }
 
-    const button = document.createElement('ic-button', { is: 'button' })
-    button.innerText = this.buttonText
+    if (this.options.showIcon) {
+      const panoIcon = document.createElement('img')
+      panoIcon.className = 'ic-preview__image--pano'
+      panoIcon.alt = '360° icon'
+      panoIcon.setAttribute('role', 'presentation')
+      panoIcon.src = encodedPanoIcon()
+      wrapper.appendChild(panoIcon)
+    }
 
-    wrapper.appendChild(button)
-    wrapper.appendChild(img)
+    if (this.options.buttonText && this.options.buttonText !== '') {
+      const button = document.createElement('ic-button', { is: 'button' })
+      button.innerText = this.options.buttonText
+      wrapper.appendChild(button)
+    }
+
+    this.block.appendChild(img)
     this.block.appendChild(wrapper)
     this.container.appendChild(this.block)
 

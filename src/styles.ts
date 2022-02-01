@@ -17,33 +17,45 @@ const css = `
   cursor: pointer;
 }
 
-.ic-preview__wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
 .ic-preview__image {
   z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.975;
   transition: opacity 0.3s ease;
 }
 
-.ic-preview:focus .ic-preview__image,
-.ic-preview:hover .ic-preview__image {
-  opacity: 1;
+.ic-preview__wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  justify-content: center;
+  align-self: center;
+  max-width: 100%;
+  align-content: center;
+  align-items: center;
+}
+
+.ic-preview__image--pano {
+  display: block;
+  max-height: 5rem;
+  transition: all 0.3s ease;
+}
+
+.ic-preview:focus .ic-preview__image--pano,
+.ic-preview:hover .ic-preview__image--pano,
+.ic-preview__image--pano:focus,
+.ic-preview__image--pano:hover {
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.25));
 }
 
 ic-button {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 2;
   display: block;
   max-width: var(--ic-preview__button-width);
   max-height: var(--ic-preview__button-height);
@@ -53,10 +65,10 @@ ic-button {
   text-decoration: none;
   text-shadow: 0 0 3px #000;
   cursor: pointer;
+  line-height: 1.16;
   background-color: transparent;
   border: 0;
   transition: all 0.3s ease;
-  transform: translate(-50%, -50%);
   backdrop-filter: blur(0.25px);
 }
 
